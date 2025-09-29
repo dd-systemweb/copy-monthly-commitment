@@ -2,2769 +2,1407 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Expenses Tracker - Mobile App</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Expense & Commitment Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Existing Colors */
-            --primary-color: #ffffff;
-            --secondary-color: #f8f9fa;
-            --text-color: #212529;
-            --border-color: #e9ecef;
-            --accent-pink: #f8d7da;
-            --accent-pink-dark: #f1aeb5;
-            --accent-pink-light: #fce4ec;
-            --accent-blue: #cfe2ff;
-            --accent-blue-dark: #9ec5fe;
-            --accent-blue-light: #e3f2fd;
-            --accent-green: #d1e7dd;
-            --accent-green-dark: #a3cfbb;
-            --accent-green-light: #e8f5e9;
-            
-            /* New Colors */
-            --accent-purple: #e1bee7;
-            --accent-purple-dark: #ba68c8;
-            --accent-purple-light: #f3e5f5;
-            --accent-amber: #ffecb3;
-            --accent-amber-dark: #ffb74d;
-            --accent-amber-light: #fff8e1;
-            --accent-teal: #b2dfdb;
-            --accent-teal-dark: #4db6ac;
-            --accent-teal-light: #e0f2f1;
-            
-            /* Shadows */
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.12);
-            --shadow-lg: 0 8px 24px rgba(0,0,0,0.16);
-            --shadow-xl: 0 12px 28px rgba(0,0,0,0.18);
-            
-            /* Border Radius */
-            --radius: 16px;
-            --radius-sm: 8px;
-            --radius-lg: 24px;
-            
-            /* Gradient */
-            --gradient: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
-            --gradient-pink: linear-gradient(135deg, #fce4ec 0%, #f8d7da 100%);
-            --gradient-blue: linear-gradient(135deg, #e3f2fd 0%, #cfe2ff 100%);
-            --gradient-green: linear-gradient(135deg, #e8f5e9 0%, #d1e7dd 100%);
-            --gradient-purple: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-            
-            /* App Dimensions */
-            --app-height: 100vh;
-            --app-width: 100vw;
-            --header-height: 60px;
-            --footer-height: 70px;
-            --content-height: calc(var(--app-height) - var(--header-height) - var(--footer-height));
-        }
-        
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            --soft-pink: #ffe0e6;
+            --light-pink: #fff5f7;
+            --white: #ffffff;
+            --pastel-pink: #ffd6e0;
+            --very-light-pink: #fffbfc;
+            --green: #28a745;
         }
         
         body {
-            background-color: #f5f7fa;
-            color: var(--text-color);
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            height: var(--app-height);
-            width: var(--app-width);
-            position: fixed;
-            top: 0;
-            left: 0;
+            background-color: var(--very-light-pink);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .app-container {
-            display: flex;
-            flex-direction: column;
-            height: var(--app-height);
-            width: var(--app-width);
-            overflow: hidden;
-        }
-        
-        /* Login Screen */
         .login-container {
-            min-height: var(--app-height);
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
-            background: var(--gradient);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .login-container::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(241,174,181,0.1) 0%, rgba(241,174,181,0) 70%);
-            z-index: 0;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--very-light-pink);
         }
         
         .login-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(255, 209, 220, 0.2);
             width: 100%;
             max-width: 400px;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-xl);
-            border: none;
-            overflow: hidden;
-            background: white;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
         }
         
-        .login-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .login-card .card-body {
-            padding: 2.5rem 2rem;
-        }
-        
-        .login-card h3 {
-            font-weight: 700;
-            color: #4a5568;
-            margin-bottom: 2rem;
-            text-align: center;
-            font-size: 1.5rem;
-        }
-        
-        .login-card .app-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            background: var(--gradient-pink);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .login-card .app-logo i {
-            font-size: 2.5rem;
-            color: var(--accent-pink-dark);
-        }
-        
-        /* Dashboard */
-        .dashboard {
+        .app-container {
             display: none;
-            flex-direction: column;
-            height: var(--app-height);
-            width: var(--app-width);
+            padding: 20px;
         }
         
-        /* App Header */
-        .app-header {
-            background-color: var(--primary-color);
-            box-shadow: var(--shadow-sm);
-            padding: 0 1rem;
-            height: var(--header-height);
+        .header {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(255, 209, 220, 0.1);
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border-color);
-            z-index: 10;
-        }
-        
-        .app-header h1 {
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #4a5568;
-            margin: 0;
-            display: flex;
             align-items: center;
         }
         
-        .app-header h1 i {
-            margin-right: 0.5rem;
-            color: var(--accent-pink-dark);
-        }
-        
-        .current-date-time {
-            font-size: 0.8rem;
-            color: #6c757d;
-            font-weight: 500;
-        }
-        
-        /* App Content */
-        .app-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1rem;
-            height: var(--content-height);
-            -webkit-overflow-scrolling: touch;
-            background-color: #f8f9fa;
-        }
-        
-        /* App Footer Navigation */
-        .app-footer {
-            background-color: var(--primary-color);
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
-            height: var(--footer-height);
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            border-top: 1px solid var(--border-color);
-            z-index: 10;
-        }
-        
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #6c757d;
-            text-decoration: none;
-            padding: 0.5rem;
-            border-radius: var(--radius-sm);
-            transition: all 0.2s ease;
-            width: 60px;
-            position: relative;
-        }
-        
-        .nav-item.active {
-            color: var(--accent-pink-dark);
-        }
-        
-        .nav-item.active::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background-color: var(--accent-pink-dark);
-            border-radius: 3px;
-        }
-        
-        .nav-item i {
-            font-size: 1.5rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .nav-item span {
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-        
-        /* Cards */
         .card {
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            background: white;
-        }
-        
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(255, 209, 220, 0.1);
+            margin-bottom: 20px;
+            border: none;
         }
         
         .card-header {
-            background-color: var(--primary-color);
-            border-bottom: 1px solid var(--border-color);
+            background-color: var(--pastel-pink);
+            border-radius: 15px 15px 0 0 !important;
+            border-bottom: none;
             font-weight: 600;
-            padding: 1rem 1.25rem;
-            font-size: 1rem;
-            color: #4a5568;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .card-header i {
-            margin-right: 0.5rem;
-            color: var(--accent-pink-dark);
-        }
-        
-        /* Buttons */
-        .btn {
-            border-radius: var(--radius-sm);
-            padding: 0.6rem 1rem;
-            font-weight: 500;
-            transition: all 0.25s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .btn i {
-            margin-right: 0.4rem;
         }
         
         .btn-primary {
-            background-color: var(--accent-pink);
-            color: var(--text-color);
+            background-color: var(--pastel-pink);
+            border-color: var(--pastel-pink);
+            color: #333;
         }
         
         .btn-primary:hover {
-            background-color: var(--accent-pink-dark);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-sm);
+            background-color: #ffc2d1;
+            border-color: #ffc2d1;
+            color: #333;
         }
         
-        .btn-success {
-            background-color: var(--accent-green);
-            color: var(--text-color);
-        }
-        
-        .btn-success:hover {
-            background-color: var(--accent-green-dark);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .btn-outline-primary {
-            color: var(--accent-pink-dark);
-            border: 1px solid var(--accent-pink-dark);
-        }
-        
-        .btn-outline-primary:hover {
-            background-color: var(--accent-pink);
-            color: var(--text-color);
-        }
-        
-        .btn-paid {
-            background-color: #28a745;
-            color: white;
-            font-weight: 600;
-            min-width: 70px;
-        }
-        
-        .btn-paid:hover {
-            background-color: #218838;
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .btn-add {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            padding: 0;
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn-fab {
-            position: fixed;
-            bottom: calc(var(--footer-height) + 1rem);
-            right: 1rem;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            padding: 0;
-            box-shadow: var(--shadow-lg);
-            z-index: 20;
-            background: var(--gradient-pink);
-            color: white;
-            border: none;
-        }
-        
-        .btn-fab:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: var(--shadow-xl);
-        }
-        
-        /* Forms */
-        .form-control, .form-select {
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border-color);
-            padding: 0.75rem 1rem;
-            transition: all 0.25s ease;
+        .table {
             font-size: 0.9rem;
+        }
+        
+        .table th {
+            background-color: var(--light-pink);
+            border-bottom: 2px solid var(--pastel-pink);
+        }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1px solid var(--pastel-pink);
         }
         
         .form-control:focus, .form-select:focus {
-            border-color: var(--accent-pink-dark);
-            box-shadow: 0 0 0 0.25rem rgba(241, 174, 181, 0.25);
+            border-color: var(--pastel-pink);
+            box-shadow: 0 0 0 0.25rem rgba(255, 209, 220, 0.25);
         }
         
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: #495057;
-        }
-        
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-        
-        /* Enhanced Form Styling */
-        .form-section {
-            background-color: var(--secondary-color);
-            border-radius: var(--radius);
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--border-color);
-        }
-        
-        .form-section-title {
+        .person-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: #495057;
-            margin-bottom: 0.75rem;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
         }
         
-        .form-section-title i {
-            margin-right: 0.5rem;
-            color: var(--accent-pink-dark);
+        .danial-badge {
+            background-color: #e6f2ff;
+            color: #0066cc;
         }
         
-        .required-label::after {
-            content: " *";
-            color: #dc3545;
+        .bella-badge {
+            background-color: #ffe6f0;
+            color: #cc0066;
         }
         
-        .form-row {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
+        .both-badge {
+            background-color: #e6ffe6;
+            color: #009933;
         }
         
-        .form-row .form-group {
-            flex: 1;
-            margin-bottom: 0;
-        }
-        
-        /* Month Selector Styling */
-        .month-selector {
-            position: relative;
-        }
-        
-        .month-display {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem 1rem;
-            background-color: white;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        
-        .month-display:hover {
-            border-color: var(--accent-pink-dark);
-        }
-        
-        .month-display.active {
-            border-color: var(--accent-pink-dark);
-            box-shadow: 0 0 0 0.25rem rgba(241, 174, 181, 0.25);
-        }
-        
-        .month-display-text {
-            font-weight: 500;
-            color: #495057;
-        }
-        
-        .month-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background-color: white;
-            border: 1px solid var(--border-color);
-            border-top: none;
-            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 100;
-            display: none;
-        }
-        
-        .month-dropdown.show {
-            display: block;
-        }
-        
-        .month-option {
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        
-        .month-option:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        .month-option.selected {
-            background-color: var(--accent-pink-light);
-            font-weight: 500;
-        }
-        
-        /* Split Bill Visual Enhancement */
-        .split-visual {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 1rem;
-            background: white;
-            border-radius: var(--radius-sm);
-            padding: 1rem;
-            border: 1px solid var(--border-color);
-        }
-        
-        .split-person {
-            text-align: center;
-            flex: 1;
-        }
-        
-        .split-person-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 0.5rem;
-            font-size: 1.5rem;
-        }
-        
-        .split-person-icon.danial {
-            background-color: var(--accent-blue-light);
-            color: var(--accent-blue-dark);
-        }
-        
-        .split-person-icon.bella {
-            background-color: var(--accent-pink-light);
-            color: var(--accent-pink-dark);
-        }
-        
-        .split-percentage {
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .split-amount {
-            font-size: 0.9rem;
-            color: #6c757d;
-        }
-        
-        .split-divider {
-            height: 60px;
-            width: 1px;
-            background-color: var(--border-color);
-            margin: 0 1rem;
-        }
-        
-        /* Status Toggle Enhancement */
-        .status-toggle {
-            display: flex;
-            background-color: white;
-            border-radius: var(--radius-sm);
+        .commitment-card {
+            margin-bottom: 15px;
+            border-radius: 10px;
             overflow: hidden;
-            border: 1px solid var(--border-color);
         }
         
-        .status-option {
-            flex: 1;
-            padding: 0.75rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
-        
-        .status-option.pending {
-            color: #856404;
-        }
-        
-        .status-option.paid {
-            color: #0f5132;
-        }
-        
-        .status-option.active {
-            background-color: var(--secondary-color);
-        }
-        
-        .status-option.pending.active {
-            background-color: #fff3cd;
-        }
-        
-        .status-option.paid.active {
-            background-color: var(--accent-green);
-        }
-        
-        /* Tables */
-        .table {
-            border-color: var(--border-color);
-            font-size: 0.85rem;
-        }
-        
-        .table thead th {
-            border-bottom: 2px solid var(--border-color);
-            background-color: var(--secondary-color);
+        .commitment-header {
+            padding: 10px 15px;
             font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
-            color: #6c757d;
-            padding: 0.75rem 0.5rem;
         }
         
-        .table tbody td {
-            padding: 0.75rem 0.5rem;
-            vertical-align: middle;
+        .danial-header {
+            background-color: #e6f2ff;
         }
         
-        .table tbody tr {
-            transition: background-color 0.2s ease;
+        .bella-header {
+            background-color: #ffe6f0;
         }
         
-        .table tbody tr:hover {
-            background-color: rgba(0, 0, 0, 0.02);
+        .filter-section {
+            margin-bottom: 20px;
         }
         
-        /* Badges */
-        .badge {
-            font-weight: 500;
-            padding: 0.35rem 0.65rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
+        .completed-row {
+            text-decoration: line-through;
+            opacity: 0.6;
         }
         
-        /* Search Box */
-        .search-box {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-        
-        .search-box i {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #adb5bd;
-        }
-        
-        /* Commitment Person Styling */
-        .commitment-person {
-            border-left: 4px solid;
-            position: relative;
-        }
-        
-        .commitment-danial {
-            border-left-color: var(--accent-blue-dark);
-        }
-        
-        .commitment-bella {
-            border-left-color: var(--accent-pink-dark);
-        }
-        
-        .commitment-both {
-            border-left-color: var(--accent-green-dark);
-        }
-        
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1050;
-        }
-        
-        .custom-toast {
-            background-color: white;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-lg);
-            border-radius: var(--radius);
-        }
-        
-        /* Split Options */
-        .split-options {
-            display: none;
-        }
-        
-        .split-options.active {
-            display: block;
-        }
-        
-        /* Status Badges */
-        .status-badge {
-            font-size: 0.7rem;
-            padding: 0.3rem 0.65rem;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-        
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        
-        .status-paid {
-            background-color: var(--accent-green);
-            color: #0f5132;
-        }
-        
-        /* Amount Display */
-        .amount-display {
-            font-weight: 600;
-            color: #495057;
-        }
-        
-        /* Edit Mode */
-        .edit-mode {
-            background-color: #f8f9fa;
-            border-radius: var(--radius);
-        }
-        
-        /* Split Info */
-        .split-info {
-            background-color: var(--secondary-color);
-            border-radius: var(--radius-sm);
-            padding: 0.75rem;
-            margin-top: 0.5rem;
-            border: 1px solid var(--border-color);
-        }
-        
-        .split-label {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-bottom: 0.25rem;
-        }
-        
-        .split-amount {
-            font-weight: 600;
-            color: #495057;
-        }
-        
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
-        
-        /* Status Section */
-        .status-section {
-            background-color: var(--secondary-color);
-            border-radius: var(--radius-sm);
-            padding: 0.75rem;
-            margin-top: 0.5rem;
-            border: 1px solid var(--border-color);
-        }
-        
-        /* Pages */
-        .page {
-            display: none;
-        }
-        
-        .page.active {
-            display: block;
-        }
-        
-        /* Modal */
-        .modal-content {
-            border-radius: var(--radius);
+        .form-check-input:checked {
+            background-color: var(--green);
+            border-color: var(--green);
         }
         
         .modal-header {
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem;
+            background-color: var(--light-pink);
         }
         
-        .modal-footer {
-            border-top: 1px solid var(--border-color);
-            padding: 1rem;
+        .delete-modal .modal-content {
+            border-radius: 15px;
+            border: none;
         }
         
-        .modal-body {
-            padding: 1rem;
+        .delete-modal .modal-header {
+            background-color: #f8d7da;
+            color: #721c24;
         }
         
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 2rem;
-            color: #6c757d;
-        }
-        
-        .empty-state i {
-            font-size: 3rem;
-            color: #dee2e6;
-            margin-bottom: 1rem;
-        }
-        
-        /* Summary Cards (Outstanding) */
-        .summary-container {
-            margin-bottom: 1.5rem;
-        }
-        
-        .summary-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .summary-title {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #495057;
-        }
-        
-        .summary-subtitle {
-            font-size: 0.85rem;
-            color: #6c757d;
-        }
-        
-        .summary-cards {
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            padding-bottom: 0.5rem;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .summary-card {
-            background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-sm);
-            padding: 1.25rem;
-            min-width: 140px;
-            flex: 1;
-            transition: all 0.3s ease;
-            border-top: 4px solid;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .summary-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .summary-card.danial {
-            border-top-color: var(--accent-blue-dark);
-        }
-        
-        .summary-card.bella {
-            border-top-color: var(--accent-pink-dark);
-        }
-        
-        .summary-card.total {
-            border-top-color: var(--accent-green-dark);
-        }
-        
-        .summary-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle at top right, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 0 0 0 60px;
-        }
-        
-        .summary-card-icon {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            opacity: 0.2;
-        }
-        
-        .summary-card.danial .summary-card-icon {
-            color: var(--accent-blue-dark);
-        }
-        
-        .summary-card.bella .summary-card-icon {
-            color: var(--accent-pink-dark);
-        }
-        
-        .summary-card.total .summary-card-icon {
-            color: var(--accent-green-dark);
-        }
-        
-        .summary-label {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .summary-amount {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        
-        .summary-change {
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-        }
-        
-        .summary-change.positive {
-            color: #28a745;
-        }
-        
-        .summary-change.negative {
-            color: #dc3545;
-        }
-        
-        .summary-change i {
-            margin-right: 0.25rem;
-            font-size: 0.9rem;
-        }
-        
-        /* Loading Spinner */
-        .loading-spinner {
-            display: inline-block;
-            width: 1.5rem;
-            height: 1.5rem;
-            border: 0.2rem solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top-color: var(--accent-pink-dark);
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Month Filter */
-        .month-filter {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            gap: 1rem;
-        }
-        
-        .month-filter-label {
-            font-weight: 500;
-            color: #495057;
-            white-space: nowrap;
-        }
-        
-        /* Mobile specific adjustments */
         @media (max-width: 768px) {
-            .app-content {
-                padding: 0.75rem;
-            }
-            
-            .btn-fab {
-                bottom: calc(var(--footer-height) + 0.75rem);
-                right: 0.75rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .app-header h1 {
-                font-size: 1.1rem;
-            }
-            
-            .nav-item i {
-                font-size: 1.3rem;
-            }
-            
-            .nav-item span {
-                font-size: 0.7rem;
-            }
-            
-            .btn {
-                font-size: 0.85rem;
-                padding: 0.5rem 0.8rem;
-            }
-            
-            .form-label {
-                font-size: 0.85rem;
-            }
-            
-            .form-control, .form-select {
-                font-size: 0.85rem;
-                padding: 0.6rem 0.8rem;
-            }
-            
-            .card-header {
-                font-size: 0.95rem;
-                padding: 0.6rem 0.8rem;
-            }
-            
-            .action-buttons .btn {
-                padding: 0.3rem 0.5rem;
+            .table-responsive {
                 font-size: 0.8rem;
             }
             
-            .split-info .row > div {
-                margin-bottom: 0.5rem;
-            }
-            
-            .summary-cards {
-                gap: 0.75rem;
-            }
-            
-            .summary-card {
-                min-width: 110px;
-                padding: 1rem;
-            }
-            
-            .summary-amount {
-                font-size: 1.25rem;
-            }
-            
-            .month-filter {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.775rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- Login Screen -->
-    <div class="login-container">
-        <div class="card login-card">
-            <div class="card-body">
-                <div class="app-logo">
-                    <i class="bi bi-wallet2"></i>
-                </div>
-                <h3>Expenses Tracker</h3>
-                <div class="mb-4">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter password">
-                </div>
-                <button class="btn btn-primary w-100 py-2" id="loginBtn">
-                    <i class="bi bi-box-arrow-in-right"></i> Login
+    <div class="login-container" id="loginScreen">
+        <div class="login-card">
+            <h3 class="text-center mb-4">Expense Tracker Login</h3>
+            <div class="mb-3">
+                <label for="passwordInput" class="form-label">Password</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Enter password">
+            </div>
+            <button class="btn btn-primary w-100" id="loginBtn">Login</button>
+            <div class="invalid-feedback mt-2" id="loginError" style="display: none;">
+                Incorrect password. Please try again.
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="app-container" id="appContainer">
+        <div class="header">
+            <h1 class="mb-0">Monthly Expense & Commitment Tracker</h1>
+            <button class="btn btn-outline-danger" id="logoutBtn">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </div>
+
+        <!-- Expenses Section -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Expenses</h5>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addExpenseModal">
+                    <i class="bi bi-plus-circle"></i> Add Expense
                 </button>
-                <div class="invalid-feedback mt-2" id="loginError">
-                    Incorrect password. Please try again.
+            </div>
+            <div class="card-body">
+                <div class="filter-section">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="searchExpenses" placeholder="Search expenses...">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="filterCategory">
+                                <option value="">All Categories</option>
+                                <option value="One-time Payment">One-time Payment</option>
+                                <option value="BNPL">BNPL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="filterPerson">
+                                <option value="">All Persons</option>
+                                <option value="Danial">Danial</option>
+                                <option value="Bella">Bella</option>
+                                <option value="Both">Both</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary w-100" id="clearFilters">Clear</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="expensesTable">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Payment Method</th>
+                                <th>Amount</th>
+                                <th>Person</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expensesTableBody">
+                            <!-- Expenses will be added here dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commitments Section -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Monthly Commitments</h5>
+                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addCommitmentModal">
+                    <i class="bi bi-plus-circle"></i> Add Commitment
+                </button>
+            </div>
+            <div class="card-body">
+                <div class="filter-section">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="searchCommitments" placeholder="Search commitments...">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select" id="filterCommitmentPerson">
+                                <option value="">All Persons</option>
+                                <option value="Danial">Danial</option>
+                                <option value="Bella">Bella</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="month" class="form-control" id="filterMonth">
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary w-100" id="clearCommitmentFilters">Clear</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="commitmentsContainer">
+                    <!-- Commitments will be added here dynamically -->
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Dashboard -->
-    <div class="dashboard">
-        <div class="app-container">
-            <!-- App Header -->
-            <div class="app-header">
-                <h1><i class="bi bi-wallet2"></i> Expenses Tracker</h1>
-                <div class="d-flex flex-column align-items-end">
-                    <div class="current-date-time" id="currentDateTime"></div>
-                    <button class="btn btn-outline-secondary" id="logoutBtn">
-                        <i class="bi bi-box-arrow-right"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- App Content -->
-            <div class="app-content">
-                <!-- Outstanding Summary Cards -->
-                <div class="summary-container">
-                    <div class="summary-header">
-                        <div>
-                            <div class="summary-title">Outstanding Amount</div>
-                            <div class="summary-subtitle">Pending payments</div>
-                        </div>
-                        <button class="btn btn-sm btn-outline-primary" id="refreshSummary">
-                            <i class="bi bi-arrow-clockwise"></i>
-                        </button>
-                    </div>
-                    <div class="summary-cards">
-                        <div class="summary-card danial">
-                            <i class="bi bi-person-circle summary-card-icon"></i>
-                            <div class="summary-label">Danial</div>
-                            <div class="summary-amount">RM<span id="danialTotal">0.00</span></div>
-                            <div class="summary-change positive" id="danialChange" style="display: none;">
-                                <i class="bi bi-arrow-down"></i> <span>0.00</span>
-                            </div>
-                        </div>
-                        <div class="summary-card bella">
-                            <i class="bi bi-person-circle summary-card-icon"></i>
-                            <div class="summary-label">Bella</div>
-                            <div class="summary-amount">RM<span id="bellaTotal">0.00</span></div>
-                            <div class="summary-change positive" id="bellaChange" style="display: none;">
-                                <i class="bi bi-arrow-down"></i> <span>0.00</span>
-                            </div>
-                        </div>
-                        <div class="summary-card total">
-                            <i class="bi bi-cash-stack summary-card-icon"></i>
-                            <div class="summary-label">Total</div>
-                            <div class="summary-amount">RM<span id="totalAmount">0.00</span></div>
-                            <div class="summary-change positive" id="totalChange" style="display: none;">
-                                <i class="bi bi-arrow-down"></i> <span>0.00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Month Filter -->
-                <div class="month-filter">
-                    <div class="month-filter-label">Filter by month:</div>
-                    <div class="month-selector" id="monthFilter">
-                        <div class="month-display" id="monthFilterDisplay">
-                            <span class="month-display-text" id="monthFilterText">All Months</span>
-                            <i class="bi bi-chevron-down"></i>
-                        </div>
-                        <div class="month-dropdown" id="monthFilterDropdown">
-                            <div class="month-option selected" data-value="">All Months</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Search Bar -->
-                <div class="search-box">
-                    <input type="text" class="form-control" id="searchInput" placeholder="Search expenses or commitments...">
-                    <i class="bi bi-search"></i>
-                </div>
-
-                <!-- Expenses Page -->
-                <div id="expensesPage" class="page active">
-                    <!-- Add Expense Form -->
-                    <div class="card">
-                        <div class="card-header">
-                            <span id="formTitle"><i class="bi bi-plus-circle"></i> Add New Expense</span>
-                            <button class="btn btn-primary btn-add" id="toggleExpenseForm">
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </div>
-                        <div class="card-body" id="expenseForm" style="display: none;">
-                            <form id="addExpenseForm">
-                                <input type="hidden" id="expenseId">
-                                
-                                <!-- Basic Information Section -->
-                                <div class="form-section">
-                                    <div class="form-section-title">
-                                        <i class="bi bi-info-circle"></i> Basic Information
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="expenseDescription" class="form-label required-label">Description</label>
-                                        <input type="text" class="form-control" id="expenseDescription" required>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="expenseAmount" class="form-label required-label">Amount (RM)</label>
-                                            <input type="number" class="form-control" id="expenseAmount" step="0.01" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="expenseMonth" class="form-label required-label">Month</label>
-                                            <div class="month-selector" id="expenseMonthSelector">
-                                                <div class="month-display" id="expenseMonthDisplay">
-                                                    <span class="month-display-text" id="expenseMonthText">Select Month</span>
-                                                    <i class="bi bi-chevron-down"></i>
-                                                </div>
-                                                <div class="month-dropdown" id="expenseMonthDropdown">
-                                                    <!-- Options will be populated dynamically -->
-                                                </div>
-                                            </div>
-                                            <input type="hidden" id="expenseMonth" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Payment Method Section -->
-                                <div class="form-section">
-                                    <div class="form-section-title">
-                                        <i class="bi bi-credit-card"></i> Payment Method
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="expenseCategory" class="form-label required-label">Payment Method</label>
-                                        <select class="form-select" id="expenseCategory" required>
-                                            <option value="" selected disabled>Select payment method</option>
-                                            <option value="debit">Debit Card</option>
-                                            <option value="credit">Credit Card</option>
-                                            <option value="spay">SPay Later</option>
-                                            <option value="atome">Atome</option>
-                                            <option value="grabpaylater">GrabPay Later</option>
-                                            <option value="otherbnpl">Other BNPL</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group" id="installmentOptions" style="display: none;">
-                                        <label for="installmentPlan" class="form-label">Installment Plan</label>
-                                        <select class="form-select" id="installmentPlan">
-                                            <option value="onetime">One-time Payment</option>
-                                            <option value="3">3 Months</option>
-                                            <option value="6">6 Months</option>
-                                            <option value="12">12 Months</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group" id="monthlyPaymentSection" style="display: none;">
-                                        <label for="monthlyPayment" class="form-label">Monthly Payment (RM)</label>
-                                        <input type="number" class="form-control" id="monthlyPayment" step="0.01" readonly>
-                                    </div>
-                                </div>
-                                
-                                <!-- Split Bill Section -->
-                                <div class="form-section">
-                                    <div class="form-section-title">
-                                        <i class="bi bi-people"></i> Split Bill
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="splitBill" class="form-label">Split this expense?</label>
-                                        <select class="form-select" id="splitBill">
-                                            <option value="no">No</option>
-                                            <option value="yes">Yes</option>
-                                        </select>
-                                    </div>
-                                    <div class="split-options" id="splitOptions">
-                                        <div class="form-row">
-                                            <div class="form-group">
-                                                <label for="danialPercentage" class="form-label">Danial (%)</label>
-                                                <input type="number" class="form-control" id="danialPercentage" value="50" min="0" max="100">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="bellaPercentage" class="form-label">Bella (%)</label>
-                                                <input type="number" class="form-control" id="bellaPercentage" value="50" min="0" max="100">
-                                            </div>
-                                        </div>
-                                        <div class="split-visual">
-                                            <div class="split-person">
-                                                <div class="split-person-icon danial">
-                                                    <i class="bi bi-person"></i>
-                                                </div>
-                                                <div class="split-percentage"><span id="danialPercentageDisplay">50</span>%</div>
-                                                <div class="split-amount">RM <span id="danialAmountDisplay">0.00</span></div>
-                                            </div>
-                                            <div class="split-divider"></div>
-                                            <div class="split-person">
-                                                <div class="split-person-icon bella">
-                                                    <i class="bi bi-person"></i>
-                                                </div>
-                                                <div class="split-percentage"><span id="bellaPercentageDisplay">50</span>%</div>
-                                                <div class="split-amount">RM <span id="bellaAmountDisplay">0.00</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Commitment Section -->
-                                <div class="form-section">
-                                    <div class="form-section-title">
-                                        <i class="bi bi-calendar-check"></i> Commitment
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="addToCommitment" class="form-label">Add to Commitment</label>
-                                        <select class="form-select" id="addToCommitment">
-                                            <option value="no">No</option>
-                                            <option value="danial">Danial</option>
-                                            <option value="bella">Bella</option>
-                                            <option value="both">Both</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <!-- Status Section (only shown in edit mode) -->
-                                <div class="status-section" id="statusSection" style="display: none;">
-                                    <div class="form-section-title">
-                                        <i class="bi bi-flag"></i> Status
-                                    </div>
-                                    <div class="status-toggle">
-                                        <div class="status-option pending" data-status="pending">
-                                            <i class="bi bi-clock"></i> Pending
-                                        </div>
-                                        <div class="status-option paid" data-status="paid">
-                                            <i class="bi bi-check-circle"></i> Paid
-                                        </div>
-                                    </div>
-                                    <input type="hidden" id="expenseStatus" value="pending">
-                                </div>
-                                
-                                <!-- Form Actions -->
-                                <div class="d-flex gap-2 mt-3">
-                                    <button type="submit" class="btn btn-primary flex-fill" id="saveExpenseBtn">
-                                        <i class="bi bi-check-circle"></i> Add Expense
-                                    </button>
-                                    <button type="button" class="btn btn-outline-secondary" id="cancelEditBtn" style="display: none;">
-                                        <i class="bi bi-x-circle"></i> Cancel
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Expenses Table -->
-                    <div class="card">
-                        <div class="card-header"><i class="bi bi-receipt"></i> Expenses</div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0" id="expensesTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Payment</th>
-                                            <th>Installment</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="expensesTableBody">
-                                        <!-- Expenses will be added here dynamically -->
-                                    </tbody>
-                                </table>
-                                <div class="empty-state" id="expensesEmptyState" style="display: none;">
-                                    <i class="bi bi-inbox"></i>
-                                    <p>No expenses found. Add your first expense to get started!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Commitments Page -->
-                <div id="commitmentsPage" class="page">
-                    <!-- Danial's Commitments -->
-                    <div class="card mb-3">
-                        <div class="card-header commitment-person commitment-danial">
-                            <i class="bi bi-person-circle"></i> Danial's Commitments
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="p-3 pb-0">
-                                <button class="btn btn-sm btn-primary mb-3" id="addDanialCommitment">
-                                    <i class="bi bi-plus-circle"></i> Add Commitment
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0" id="danialCommitmentsTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="danialCommitmentsTableBody">
-                                        <!-- Commitments will be added here dynamically -->
-                                    </tbody>
-                                </table>
-                                <div class="empty-state" id="danialCommitmentsEmptyState" style="display: none;">
-                                    <i class="bi bi-inbox"></i>
-                                    <p>No commitments found. Add your first commitment to get started!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bella's Commitments -->
-                    <div class="card">
-                        <div class="card-header commitment-person commitment-bella">
-                            <i class="bi bi-person-circle"></i> Bella's Commitments
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="p-3 pb-0">
-                                <button class="btn btn-sm btn-primary mb-3" id="addBellaCommitment">
-                                    <i class="bi bi-plus-circle"></i> Add Commitment
-                                </button>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover mb-0" id="bellaCommitmentsTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="bellaCommitmentsTableBody">
-                                        <!-- Commitments will be added here dynamically -->
-                                    </tbody>
-                                </table>
-                                <div class="empty-state" id="bellaCommitmentsEmptyState" style="display: none;">
-                                    <i class="bi bi-inbox"></i>
-                                    <p>No commitments found. Add your first commitment to get started!</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- App Footer Navigation -->
-            <div class="app-footer">
-                <a href="#" class="nav-item active" data-page="expenses">
-                    <i class="bi bi-wallet2"></i>
-                    <span>Expenses</span>
-                </a>
-                <a href="#" class="nav-item" data-page="commitments">
-                    <i class="bi bi-calendar-check"></i>
-                    <span>Commitments</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Floating Action Button -->
-        <button class="btn btn-fab" id="fabAddExpense">
-            <i class="bi bi-plus"></i>
-        </button>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container"></div>
-
-    <!-- Commitment Modal -->
-    <div class="modal fade" id="commitmentModal" tabindex="-1" aria-hidden="true">
+    <!-- Add Expense Modal -->
+    <div class="modal fade" id="addExpenseModal" tabindex="-1" aria-labelledby="addExpenseModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="commitmentModalTitle">Add Commitment</h5>
+                    <h5 class="modal-title" id="addExpenseModalLabel">Add New Expense</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addCommitmentForm">
-                        <input type="hidden" id="commitmentId">
-                        <input type="hidden" id="commitmentPerson">
-                        <div class="form-group">
-                            <label for="commitmentMonth" class="form-label required-label">Month</label>
-                            <div class="month-selector" id="commitmentMonthSelector">
-                                <div class="month-display" id="commitmentMonthDisplay">
-                                    <span class="month-display-text" id="commitmentMonthText">Select Month</span>
-                                    <i class="bi bi-chevron-down"></i>
-                                </div>
-                                <div class="month-dropdown" id="commitmentMonthDropdown">
-                                    <!-- Options will be populated dynamically -->
-                                </div>
-                            </div>
-                            <input type="hidden" id="commitmentMonth" required>
+                    <form id="expenseForm">
+                        <div class="mb-3">
+                            <label for="expenseDate" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="expenseDate" required>
                         </div>
-                        <div class="form-group">
-                            <label for="commitmentDescription" class="form-label required-label">Description</label>
-                            <input type="text" class="form-control" id="commitmentDescription" required>
+                        <div class="mb-3">
+                            <label for="expenseDescription" class="form-label">Description</label>
+                            <input type="text" class="form-control" id="expenseDescription" required>
                         </div>
-                        <div class="form-group">
-                            <label for="commitmentAmount" class="form-label required-label">Amount (RM)</label>
-                            <input type="number" class="form-control" id="commitmentAmount" step="0.01" required>
+                        <div class="mb-3">
+                            <label for="expenseCategory" class="form-label">Category</label>
+                            <select class="form-select" id="expenseCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="One-time Payment">One-time Payment</option>
+                                <option value="BNPL">BNPL</option>
+                            </select>
                         </div>
-                        <div class="status-section form-group" id="commitmentStatusSection" style="display: none;">
-                            <div class="form-section-title">
-                                <i class="bi bi-flag"></i> Status
-                            </div>
-                            <div class="status-toggle">
-                                <div class="status-option pending" data-status="pending">
-                                    <i class="bi bi-clock"></i> Pending
-                                </div>
-                                <div class="status-option paid" data-status="paid">
-                                    <i class="bi bi-check-circle"></i> Paid
-                                </div>
-                            </div>
-                            <input type="hidden" id="commitmentStatus" value="pending">
+                        <div class="mb-3" id="paymentMethodDiv">
+                            <label for="paymentMethod" class="form-label">Payment Method</label>
+                            <select class="form-select" id="paymentMethod" required>
+                                <option value="">Select Payment Method</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="installmentDiv" style="display: none;">
+                            <label for="installmentPeriod" class="form-label">Installment Period</label>
+                            <select class="form-select" id="installmentPeriod">
+                                <option value="0">One-time Payment</option>
+                                <option value="3">3 Months</option>
+                                <option value="6">6 Months</option>
+                                <option value="12">12 Months</option>
+                                <option value="18">18 Months</option>
+                                <option value="24">24 Months</option>
+                                <option value="36">36 Months</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expenseAmount" class="form-label">Amount (RM)</label>
+                            <input type="number" class="form-control" id="expenseAmount" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expensePerson" class="form-label">Person</label>
+                            <select class="form-select" id="expensePerson" required>
+                                <option value="">Select Person</option>
+                                <option value="Danial">Danial</option>
+                                <option value="Bella">Bella</option>
+                                <option value="Both">Both (Split Bill)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="splitAmountDiv" style="display: none;">
+                            <label for="danialAmount" class="form-label">Danial's Amount (RM)</label>
+                            <input type="number" class="form-control" id="danialAmount" step="0.01">
+                            <label for="bellaAmount" class="form-label mt-2">Bella's Amount (RM)</label>
+                            <input type="number" class="form-control" id="bellaAmount" step="0.01">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="addToCommitment">
+                            <label class="form-check-label" for="addToCommitment">
+                                Add to Monthly Commitment
+                            </label>
+                        </div>
+                        <div class="mb-3" id="commitmentPersonDiv" style="display: none;">
+                            <label for="commitmentPerson" class="form-label">Add Commitment For</label>
+                            <select class="form-select" id="commitmentPerson">
+                                <option value="">Select Person</option>
+                                <option value="Danial">Danial</option>
+                                <option value="Bella">Bella</option>
+                                <option value="Both">Both</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="commitmentMonthDiv" style="display: none;">
+                            <label for="commitmentMonth" class="form-label">Commitment Month</label>
+                            <input type="month" class="form-control" id="commitmentMonth">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="bi bi-x-circle"></i> Cancel
-                    </button>
-                    <button type="button" class="btn btn-primary" id="saveCommitment">
-                        <i class="bi bi-check-circle"></i> Save
-                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveExpenseBtn">Save Expense</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Edit Expense Modal -->
+    <div class="modal fade" id="editExpenseModal" tabindex="-1" aria-labelledby="editExpenseModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editExpenseModalLabel">Edit Expense</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editExpenseForm">
+                        <input type="hidden" id="editExpenseId">
+                        <div class="mb-3">
+                            <label for="editExpenseDate" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="editExpenseDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editExpenseDescription" class="form-label">Description</label>
+                            <input type="text" class="form-control" id="editExpenseDescription" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editExpenseCategory" class="form-label">Category</label>
+                            <select class="form-select" id="editExpenseCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="One-time Payment">One-time Payment</option>
+                                <option value="BNPL">BNPL</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="editPaymentMethodDiv">
+                            <label for="editPaymentMethod" class="form-label">Payment Method</label>
+                            <select class="form-select" id="editPaymentMethod" required>
+                                <option value="">Select Payment Method</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="editInstallmentDiv" style="display: none;">
+                            <label for="editInstallmentPeriod" class="form-label">Installment Period</label>
+                            <select class="form-select" id="editInstallmentPeriod">
+                                <option value="0">One-time Payment</option>
+                                <option value="3">3 Months</option>
+                                <option value="6">6 Months</option>
+                                <option value="12">12 Months</option>
+                                <option value="18">18 Months</option>
+                                <option value="24">24 Months</option>
+                                <option value="36">36 Months</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editExpenseAmount" class="form-label">Amount (RM)</label>
+                            <input type="number" class="form-control" id="editExpenseAmount" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editExpensePerson" class="form-label">Person</label>
+                            <select class="form-select" id="editExpensePerson" required>
+                                <option value="">Select Person</option>
+                                <option value="Danial">Danial</option>
+                                <option value="Bella">Bella</option>
+                                <option value="Both">Both (Split Bill)</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="editSplitAmountDiv" style="display: none;">
+                            <label for="editDanialAmount" class="form-label">Danial's Amount (RM)</label>
+                            <input type="number" class="form-control" id="editDanialAmount" step="0.01">
+                            <label for="editBellaAmount" class="form-label mt-2">Bella's Amount (RM)</label>
+                            <input type="number" class="form-control" id="editBellaAmount" step="0.01">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="updateExpenseBtn">Update Expense</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Commitment Modal -->
+    <div class="modal fade" id="addCommitmentModal" tabindex="-1" aria-labelledby="addCommitmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCommitmentModalLabel">Add New Commitment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="commitmentForm">
+                        <div class="mb-3">
+                            <label for="commitmentPersonSelect" class="form-label">Person</label>
+                            <select class="form-select" id="commitmentPersonSelect" required>
+                                <option value="">Select Person</option>
+                                <option value="Danial">Danial</option>
+                                <option value="Bella">Bella</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commitmentDescription" class="form-label">Description</label>
+                            <input type="text" class="form-control" id="commitmentDescription" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commitmentAmount" class="form-label">Amount (RM)</label>
+                            <input type="number" class="form-control" id="commitmentAmount" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commitmentMonthSelect" class="form-label">Month</label>
+                            <input type="month" class="form-control" id="commitmentMonthSelect" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveCommitmentBtn">Save Commitment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Commitment Modal -->
+    <div class="modal fade" id="editCommitmentModal" tabindex="-1" aria-labelledby="editCommitmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCommitmentModalLabel">Edit Commitment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCommitmentForm">
+                        <input type="hidden" id="editCommitmentId">
+                        <div class="mb-3">
+                            <label for="editCommitmentPersonSelect" class="form-label">Person</label>
+                            <select class="form-select" id="editCommitmentPersonSelect" required>
+                                <option value="">Select Person</option>
+                                <option value="Danial">Danial</option>
+                                <option value="Bella">Bella</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCommitmentDescription" class="form-label">Description</label>
+                            <input type="text" class="form-control" id="editCommitmentDescription" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCommitmentAmount" class="form-label">Amount (RM)</label>
+                            <input type="number" class="form-control" id="editCommitmentAmount" step="0.01" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editCommitmentMonthSelect" class="form-label">Month</label>
+                            <input type="month" class="form-control" id="editCommitmentMonthSelect" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="updateCommitmentBtn">Update Commitment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade delete-modal" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this <span id="deleteItemType"></span>?</p>
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i> This action cannot be undone.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Google Sheets API URL
-        const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbxEa2GULAxeBzdbjRPJidXB3LFdzqz2duVJaMDOweaCsi7bjwvyXedvPJW5_C3uPEGq/exec';
-        
-        // Helper function to handle API errors
-        async function handleApiCall(url, options = {}) {
-            try {
-                // Show loading state if needed
-                if (options.showLoading !== false) {
-                    showLoading();
-                }
-                
-                const response = await fetch(url, options);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.error) {
-                    throw new Error(result.error);
-                }
-                
-                return result;
-            } catch (error) {
-                console.error('API call failed:', error);
-                showToast(`Error: ${error.message}`);
-                throw error;
-            } finally {
-                hideLoading();
-            }
-        }
-        
-        // Loading indicator functions
-        function showLoading() {
-            // Create a loading overlay if it doesn't exist
-            if (!document.getElementById('loadingOverlay')) {
-                const overlay = document.createElement('div');
-                overlay.id = 'loadingOverlay';
-                overlay.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 9999;
-                `;
-                overlay.innerHTML = '<div class="loading-spinner"></div>';
-                document.body.appendChild(overlay);
-            }
-        }
-        
-        function hideLoading() {
-            const overlay = document.getElementById('loadingOverlay');
-            if (overlay) {
-                overlay.remove();
-            }
-        }
-        
-        // Format month to YYYY-MM
-        function formatMonth(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            return `${year}-${month}`;
-        }
-        
-        // Format month to readable format (e.g., "September 2025")
-        function formatMonthReadable(monthString) {
-            if (!monthString) return '';
-            const [year, month] = monthString.split('-');
-            const date = new Date(year, month - 1);
-            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-        }
-        
-        // Update current date and time
-        function updateCurrentDateTime() {
-            const now = new Date();
-            const options = { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            };
-            const formattedDateTime = now.toLocaleDateString('en-US', options);
-            document.getElementById('currentDateTime').textContent = formattedDateTime;
-        }
-        
-        // Populate month options for month selectors
-        function populateMonthOptions(selectorId, selectedMonth = '') {
-            const selector = document.getElementById(selectorId);
-            selector.innerHTML = '';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const loginScreen = document.getElementById('loginScreen');
+            const appContainer = document.getElementById('appContainer');
             
-            const currentDate = new Date();
-            const currentYear = currentDate.getFullYear();
-            const currentMonth = currentDate.getMonth();
-            
-            // Add options for current year and next year
-            for (let year = currentYear - 1; year <= currentYear + 2; year++) {
-                const startMonth = year === currentYear - 1 ? 11 : 0;
-                const endMonth = year === currentYear + 2 ? 0 : 11;
-                
-                for (let month = startMonth; month <= endMonth; month++) {
-                    const monthValue = String(month + 1).padStart(2, '0');
-                    const optionValue = `${year}-${monthValue}`;
-                    
-                    const date = new Date(year, month);
-                    const optionText = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
-                    
-                    const option = document.createElement('div');
-                    option.className = 'month-option';
-                    option.setAttribute('data-value', optionValue);
-                    option.textContent = optionText;
-                    
-                    // Set selected month
-                    if (optionValue === selectedMonth) {
-                        option.classList.add('selected');
-                    }
-                    
-                    selector.appendChild(option);
-                }
-            }
-        }
-        
-        // Initialize month selector functionality
-        function initializeMonthSelector(selectorId, hiddenInputId, displayTextId) {
-            const selector = document.getElementById(selectorId);
-            const display = document.getElementById(selectorId.replace('Selector', 'Display'));
-            const dropdown = document.getElementById(selectorId.replace('Selector', 'Dropdown'));
-            const hiddenInput = document.getElementById(hiddenInputId);
-            const displayText = document.getElementById(displayTextId);
-            
-            // Toggle dropdown
-            display.addEventListener('click', function() {
-                dropdown.classList.toggle('show');
-                display.classList.toggle('active');
-            });
-            
-            // Handle option selection
-            dropdown.addEventListener('click', function(e) {
-                if (e.target.classList.contains('month-option')) {
-                    const value = e.target.getAttribute('data-value');
-                    const text = e.target.textContent;
-                    
-                    // Update selected option
-                    dropdown.querySelectorAll('.month-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    e.target.classList.add('selected');
-                    
-                    // Update display and hidden input
-                    displayText.textContent = text;
-                    hiddenInput.value = value;
-                    
-                    // Close dropdown
-                    dropdown.classList.remove('show');
-                    display.classList.remove('active');
-                }
-            });
-            
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!selector.contains(e.target)) {
-                    dropdown.classList.remove('show');
-                    display.classList.remove('active');
-                }
-            });
-        }
-        
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Initialize data
-            let expenses = [];
-            let danialCommitments = [];
-            let bellaCommitments = [];
-            let currentMonthFilter = '';
-            let currentSearchTerm = '';
-            
-            // Previous totals for change calculation
-            let previousDanialTotal = 0;
-            let previousBellaTotal = 0;
-            let previousTotalAmount = 0;
-            
-            // Update current date and time
-            updateCurrentDateTime();
-            setInterval(updateCurrentDateTime, 60000); // Update every minute
-            
-            // Initialize month selectors
-            initializeMonthSelector('expenseMonthSelector', 'expenseMonth', 'expenseMonthText');
-            initializeMonthSelector('commitmentMonthSelector', 'commitmentMonth', 'commitmentMonthText');
-            initializeMonthSelector('monthFilter', 'currentMonthFilter', 'monthFilterText');
-            
-            // Populate month options
-            const currentMonth = formatMonth(new Date());
-            populateMonthOptions('expenseMonthDropdown', currentMonth);
-            populateMonthOptions('commitmentMonthDropdown', currentMonth);
-            populateMonthOptions('monthFilterDropdown');
-            
-            // Set current month as default for expense and commitment
-            document.getElementById('expenseMonth').value = currentMonth;
-            document.getElementById('expenseMonthText').textContent = formatMonthReadable(currentMonth);
-            document.getElementById('commitmentMonth').value = currentMonth;
-            document.getElementById('commitmentMonthText').textContent = formatMonthReadable(currentMonth);
-            
-            // Login functionality
-            const loginBtn = document.getElementById('loginBtn');
-            const passwordInput = document.getElementById('password');
-            const loginError = document.getElementById('loginError');
-            const loginContainer = document.querySelector('.login-container');
-            const dashboard = document.querySelector('.dashboard');
-            const logoutBtn = document.getElementById('logoutBtn');
-            
-            loginBtn.addEventListener('click', function() {
-                if (passwordInput.value === 'baby') {
-                    loginContainer.style.display = 'none';
-                    dashboard.style.display = 'flex';
-                    loadAllData();
-                } else {
-                    passwordInput.classList.add('is-invalid');
-                    loginError.style.display = 'block';
-                }
-            });
-            
-            logoutBtn.addEventListener('click', function() {
-                loginContainer.style.display = 'flex';
-                dashboard.style.display = 'none';
-                passwordInput.value = '';
-                passwordInput.classList.remove('is-invalid');
-                loginError.style.display = 'none';
-            });
-            
-            // Load all data from Google Sheets
-            async function loadAllData() {
-                try {
-                    showLoading();
-                    
-                    // Fetch data from Google Sheets
-                    expenses = await handleApiCall(`${API_BASE_URL}?action=getExpenses`, { showLoading: false });
-                    danialCommitments = await handleApiCall(`${API_BASE_URL}?action=getDanialCommitments`, { showLoading: false });
-                    bellaCommitments = await handleApiCall(`${API_BASE_URL}?action=getBellaCommitments`, { showLoading: false });
-                    
-                    // Update UI
-                    updateView();
-                    
-                    showToast('Data loaded successfully!');
-                } catch (error) {
-                    console.error('Error loading data:', error);
-                    showToast('Error loading data. Please try again later.');
-                } finally {
-                    hideLoading();
-                }
+            if (isLoggedIn === 'true') {
+                loginScreen.style.display = 'none';
+                appContainer.style.display = 'block';
+                initializeApp();
+            } else {
+                loginScreen.style.display = 'flex';
+                appContainer.style.display = 'none';
+                setupLogin();
             }
             
-            // Update view function
-            function updateView() {
-                renderExpenses();
-                renderCommitments();
-                updateSummaryCards();
-            }
-            
-            // Page navigation
-            const navItems = document.querySelectorAll('.nav-item');
-            const pages = document.querySelectorAll('.page');
-            
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetPage = this.getAttribute('data-page');
-                    
-                    // Update active nav item
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Show target page
-                    pages.forEach(page => page.classList.remove('active'));
-                    document.getElementById(targetPage + 'Page').classList.add('active');
-                });
-            });
-            
-            // Floating Action Button
-            const fabAddExpense = document.getElementById('fabAddExpense');
-            const expenseForm = document.getElementById('expenseForm');
-            const expensesPage = document.getElementById('expensesPage');
-            const commitmentsPage = document.getElementById('commitmentsPage');
-            
-            fabAddExpense.addEventListener('click', function() {
-                // Switch to expenses page if not already there
-                if (!expensesPage.classList.contains('active')) {
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    document.querySelector('[data-page="expenses"]').classList.add('active');
-                    
-                    pages.forEach(page => page.classList.remove('active'));
-                    expensesPage.classList.add('active');
-                }
+            function setupLogin() {
+                const loginBtn = document.getElementById('loginBtn');
+                const passwordInput = document.getElementById('passwordInput');
+                const loginError = document.getElementById('loginError');
                 
-                // Show form
-                expenseForm.style.display = 'block';
-                document.getElementById('toggleExpenseForm').innerHTML = '<i class="bi bi-dash"></i>';
-                
-                // Scroll to top
-                window.scrollTo(0, 0);
-            });
-            
-            // Toggle form visibility
-            const toggleFormBtn = document.getElementById('toggleExpenseForm');
-            
-            toggleFormBtn.addEventListener('click', function() {
-                if (expenseForm.style.display === 'none') {
-                    expenseForm.style.display = 'block';
-                    this.innerHTML = '<i class="bi bi-dash"></i>';
-                } else {
-                    expenseForm.style.display = 'none';
-                    this.innerHTML = '<i class="bi bi-plus"></i>';
-                }
-            });
-            
-            // Payment category change
-            const expenseCategory = document.getElementById('expenseCategory');
-            const installmentOptions = document.getElementById('installmentOptions');
-            const monthlyPaymentSection = document.getElementById('monthlyPaymentSection');
-            
-            expenseCategory.addEventListener('change', function() {
-                // Show installment options for Credit Card and all BNPL options
-                if (this.value === 'credit' || this.value === 'spay' || this.value === 'atome' || 
-                    this.value === 'grabpaylater' || this.value === 'otherbnpl') {
-                    installmentOptions.style.display = 'block';
-                    monthlyPaymentSection.style.display = 'block';
-                    calculateMonthlyPayment();
-                } else {
-                    installmentOptions.style.display = 'none';
-                    monthlyPaymentSection.style.display = 'none';
-                }
-            });
-            
-            // Installment plan change
-            const installmentPlan = document.getElementById('installmentPlan');
-            const expenseAmount = document.getElementById('expenseAmount');
-            const monthlyPayment = document.getElementById('monthlyPayment');
-            
-            installmentPlan.addEventListener('change', calculateMonthlyPayment);
-            expenseAmount.addEventListener('input', calculateMonthlyPayment);
-            
-            function calculateMonthlyPayment() {
-                if (installmentPlan.value !== 'onetime' && expenseAmount.value) {
-                    const months = parseInt(installmentPlan.value);
-                    monthlyPayment.value = (parseFloat(expenseAmount.value) / months).toFixed(2);
-                } else {
-                    monthlyPayment.value = '';
-                }
-            }
-            
-            // Split bill change
-            const splitBill = document.getElementById('splitBill');
-            const splitOptions = document.getElementById('splitOptions');
-            const danialPercentage = document.getElementById('danialPercentage');
-            const bellaPercentage = document.getElementById('bellaPercentage');
-            const danialAmountDisplay = document.getElementById('danialAmountDisplay');
-            const bellaAmountDisplay = document.getElementById('bellaAmountDisplay');
-            const danialPercentageDisplay = document.getElementById('danialPercentageDisplay');
-            const bellaPercentageDisplay = document.getElementById('bellaPercentageDisplay');
-            
-            splitBill.addEventListener('change', function() {
-                if (this.value === 'yes') {
-                    splitOptions.classList.add('active');
-                    calculateSplitAmounts();
-                } else {
-                    splitOptions.classList.remove('active');
-                }
-            });
-            
-            danialPercentage.addEventListener('input', function() {
-                const value = Math.min(100, Math.max(0, parseInt(this.value) || 0));
-                this.value = value;
-                bellaPercentage.value = 100 - value;
-                calculateSplitAmounts();
-            });
-            
-            bellaPercentage.addEventListener('input', function() {
-                const value = Math.min(100, Math.max(0, parseInt(this.value) || 0));
-                this.value = value;
-                danialPercentage.value = 100 - value;
-                calculateSplitAmounts();
-            });
-            
-            expenseAmount.addEventListener('input', calculateSplitAmounts);
-            
-            function calculateSplitAmounts() {
-                if (splitBill.value === 'yes' && expenseAmount.value) {
-                    const total = parseFloat(expenseAmount.value);
-                    const danialPercent = parseInt(danialPercentage.value);
-                    const bellaPercent = parseInt(bellaPercentage.value);
-                    
-                    const danialAmount = (total * danialPercent / 100).toFixed(2);
-                    const bellaAmount = (total * bellaPercent / 100).toFixed(2);
-                    
-                    danialPercentageDisplay.textContent = danialPercent;
-                    bellaPercentageDisplay.textContent = bellaPercent;
-                    danialAmountDisplay.textContent = danialAmount;
-                    bellaAmountDisplay.textContent = bellaAmount;
-                } else {
-                    danialPercentageDisplay.textContent = '50';
-                    bellaPercentageDisplay.textContent = '50';
-                    danialAmountDisplay.textContent = '0.00';
-                    bellaAmountDisplay.textContent = '0.00';
-                }
-            }
-            
-            // Status toggle functionality
-            const statusOptions = document.querySelectorAll('.status-option');
-            const expenseStatusInput = document.getElementById('expenseStatus');
-            
-            statusOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Remove active class from all options
-                    statusOptions.forEach(opt => opt.classList.remove('active'));
-                    
-                    // Add active class to clicked option
-                    this.classList.add('active');
-                    
-                    // Update hidden input value
-                    expenseStatusInput.value = this.getAttribute('data-status');
-                });
-            });
-            
-            // Commitment modal status toggle
-            const commitmentStatusOptions = document.querySelectorAll('#commitmentModal .status-option');
-            const commitmentStatusInput = document.getElementById('commitmentStatus');
-            
-            commitmentStatusOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Remove active class from all options
-                    commitmentStatusOptions.forEach(opt => opt.classList.remove('active'));
-                    
-                    // Add active class to clicked option
-                    this.classList.add('active');
-                    
-                    // Update hidden input value
-                    commitmentStatusInput.value = this.getAttribute('data-status');
-                });
-            });
-            
-            // Add/Edit expense form submission
-            const addExpenseForm = document.getElementById('addExpenseForm');
-            const saveExpenseBtn = document.getElementById('saveExpenseBtn');
-            const cancelEditBtn = document.getElementById('cancelEditBtn');
-            const formTitle = document.getElementById('formTitle');
-            const expenseId = document.getElementById('expenseId');
-            const statusSection = document.getElementById('statusSection');
-            
-            addExpenseForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const isEditing = expenseId.value !== '';
-                
-                // Get status from hidden input
-                const status = expenseStatusInput.value;
-                
-                const expense = {
-                    id: isEditing ? parseInt(expenseId.value) : Date.now(),
-                    month: document.getElementById('expenseMonth').value,
-                    description: document.getElementById('expenseDescription').value,
-                    amount: parseFloat(document.getElementById('expenseAmount').value),
-                    category: document.getElementById('expenseCategory').value,
-                    installment: document.getElementById('installmentPlan').value || 'onetime',
-                    monthlyPayment: document.getElementById('monthlyPayment').value || null,
-                    splitBill: splitBill.value === 'yes',
-                    danialPercentage: splitBill.value === 'yes' ? parseInt(danialPercentage.value) : 100,
-                    bellaPercentage: splitBill.value === 'yes' ? parseInt(bellaPercentage.value) : 0,
-                    addToCommitment: document.getElementById('addToCommitment').value,
-                    status: status
-                };
-                
-                try {
-                    if (isEditing) {
-                        // Update existing expense
-                        const formData = new FormData();
-                        formData.append('action', 'updateExpense');
-                        formData.append('data', JSON.stringify(expense));
-                        
-                        await handleApiCall(API_BASE_URL, {
-                            method: 'POST',
-                            body: formData
-                        });
-                        
-                        showToast('Expense updated successfully!');
+                loginBtn.addEventListener('click', function() {
+                    if (passwordInput.value === 'baby') {
+                        localStorage.setItem('isLoggedIn', 'true');
+                        loginScreen.style.display = 'none';
+                        appContainer.style.display = 'block';
+                        initializeApp();
                     } else {
-                        // Add new expense
-                        const formData = new FormData();
-                        formData.append('action', 'addExpense');
-                        formData.append('data', JSON.stringify(expense));
-                        
-                        await handleApiCall(API_BASE_URL, {
-                            method: 'POST',
-                            body: formData
-                        });
-                        
-                        showToast('Expense added successfully!');
-                        
-                        // Add to commitment if selected
-                        if (expense.addToCommitment !== 'no') {
-                            const month = expense.month; // Use the month selected by the user
-                            
-                            if (expense.addToCommitment === 'danial' || expense.addToCommitment === 'both') {
-                                const danialAmount = expense.splitBill ? 
-                                    (expense.amount * expense.danialPercentage / 100) : expense.amount;
-                                
-                                const commitment = {
-                                    id: Date.now() + 1,
-                                    month: month,
-                                    description: expense.description,
-                                    amount: danialAmount,
-                                    status: 'pending'
-                                };
-                                
-                                const formData = new FormData();
-                                formData.append('action', 'addDanialCommitment');
-                                formData.append('data', JSON.stringify(commitment));
-                                
-                                await handleApiCall(API_BASE_URL, {
-                                    method: 'POST',
-                                    body: formData
-                                });
-                            }
-                            
-                            if (expense.addToCommitment === 'bella' || expense.addToCommitment === 'both') {
-                                const bellaAmount = expense.splitBill ? 
-                                    (expense.amount * expense.bellaPercentage / 100) : expense.amount;
-                                
-                                const commitment = {
-                                    id: Date.now() + 2,
-                                    month: month,
-                                    description: expense.description,
-                                    amount: bellaAmount,
-                                    status: 'pending'
-                                };
-                                
-                                const formData = new FormData();
-                                formData.append('action', 'addBellaCommitment');
-                                formData.append('data', JSON.stringify(commitment));
-                                
-                                await handleApiCall(API_BASE_URL, {
-                                    method: 'POST',
-                                    body: formData
-                                });
-                            }
-                        }
+                        passwordInput.classList.add('is-invalid');
+                        loginError.style.display = 'block';
                     }
-                    
-                    // Refresh data from server
-                    await loadAllData();
-                    resetExpenseForm();
-                } catch (error) {
-                    // Error is already handled in handleApiCall
-                }
-            });
+                });
+            }
             
-            cancelEditBtn.addEventListener('click', resetExpenseForm);
-            
-            function resetExpenseForm() {
-                addExpenseForm.reset();
+            function initializeApp() {
+                // Initialize data
+                let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+                let commitments = JSON.parse(localStorage.getItem('commitments')) || [];
+                
+                // Add completed field to existing data if not present
+                expenses = expenses.map(expense => {
+                    if (expense.completed === undefined) {
+                        expense.completed = false;
+                    }
+                    return expense;
+                });
+                
+                commitments = commitments.map(commitment => {
+                    if (commitment.completed === undefined) {
+                        commitment.completed = false;
+                    }
+                    return commitment;
+                });
+                
+                localStorage.setItem('expenses', JSON.stringify(expenses));
+                localStorage.setItem('commitments', JSON.stringify(commitments));
+                
+                // Delete confirmation variables
+                let deleteId = null;
+                let deleteType = null;
+                
+                // Logout functionality
+                const logoutBtn = document.getElementById('logoutBtn');
+                
+                logoutBtn.addEventListener('click', function() {
+                    localStorage.removeItem('isLoggedIn');
+                    appContainer.style.display = 'none';
+                    loginScreen.style.display = 'flex';
+                    passwordInput.value = '';
+                    passwordInput.classList.remove('is-invalid');
+                    loginError.style.display = 'none';
+                });
+                
+                // Expense form handling
+                const expenseCategory = document.getElementById('expenseCategory');
+                const paymentMethod = document.getElementById('paymentMethod');
+                const paymentMethodDiv = document.getElementById('paymentMethodDiv');
+                const installmentDiv = document.getElementById('installmentDiv');
+                const expensePerson = document.getElementById('expensePerson');
+                const splitAmountDiv = document.getElementById('splitAmountDiv');
+                const addToCommitment = document.getElementById('addToCommitment');
+                const commitmentPersonDiv = document.getElementById('commitmentPersonDiv');
+                const commitmentMonthDiv = document.getElementById('commitmentMonthDiv');
+                const expenseAmount = document.getElementById('expenseAmount');
+                const danialAmount = document.getElementById('danialAmount');
+                const bellaAmount = document.getElementById('bellaAmount');
+                
+                // Edit expense form handling
+                const editExpenseCategory = document.getElementById('editExpenseCategory');
+                const editPaymentMethod = document.getElementById('editPaymentMethod');
+                const editPaymentMethodDiv = document.getElementById('editPaymentMethodDiv');
+                const editInstallmentDiv = document.getElementById('editInstallmentDiv');
+                const editExpensePerson = document.getElementById('editExpensePerson');
+                const editSplitAmountDiv = document.getElementById('editSplitAmountDiv');
+                const editExpenseAmount = document.getElementById('editExpenseAmount');
+                const editDanialAmount = document.getElementById('editDanialAmount');
+                const editBellaAmount = document.getElementById('editBellaAmount');
+                
+                // Set today's date as default
+                const today = new Date().toISOString().slice(0, 10);
+                document.getElementById('expenseDate').value = today;
+                
                 // Set current month as default
-                const currentMonth = formatMonth(new Date());
-                document.getElementById('expenseMonth').value = currentMonth;
-                document.getElementById('expenseMonthText').textContent = formatMonthReadable(currentMonth);
-                installmentOptions.style.display = 'none';
-                monthlyPaymentSection.style.display = 'none';
-                splitOptions.classList.remove('active');
-                statusSection.style.display = 'none';
-                expenseId.value = '';
-                formTitle.innerHTML = '<i class="bi bi-plus-circle"></i> Add New Expense';
-                saveExpenseBtn.innerHTML = '<i class="bi bi-check-circle"></i> Add Expense';
-                cancelEditBtn.style.display = 'none';
-                document.querySelector('.card-body').classList.remove('edit-mode');
-                danialAmountDisplay.textContent = '0.00';
-                bellaAmountDisplay.textContent = '0.00';
-                danialPercentageDisplay.textContent = '50';
-                bellaPercentageDisplay.textContent = '50';
-                toggleFormBtn.innerHTML = '<i class="bi bi-plus"></i>';
+                const currentDate = new Date();
+                const currentMonth = currentDate.toISOString().slice(0, 7);
+                document.getElementById('commitmentMonth').value = currentMonth;
+                document.getElementById('commitmentMonthSelect').value = currentMonth;
+                document.getElementById('filterMonth').value = currentMonth;
                 
-                // Reset status toggle
-                statusOptions.forEach(opt => opt.classList.remove('active'));
-                document.querySelector('.status-option.pending').classList.add('active');
-                expenseStatusInput.value = 'pending';
-            }
-            
-            // Update summary cards
-            function updateSummaryCards() {
-                let danialTotal = 0;
-                let bellaTotal = 0;
-                
-                // Calculate from expenses
-                expenses.forEach(expense => {
-                    // Apply month filter if set
-                    if (currentMonthFilter && expense.month !== currentMonthFilter) {
-                        return;
-                    }
+                // Add expense category change handler
+                expenseCategory.addEventListener('change', function() {
+                    paymentMethod.innerHTML = '<option value="">Select Payment Method</option>';
                     
-                    if (expense.status === 'pending') {
-                        if (expense.splitBill) {
-                            danialTotal += expense.amount * expense.danialPercentage / 100;
-                            bellaTotal += expense.amount * expense.bellaPercentage / 100;
-                        } else {
-                            if (expense.addToCommitment === 'danial' || expense.addToCommitment === 'both') {
-                                danialTotal += expense.amount;
-                            }
-                            if (expense.addToCommitment === 'bella' || expense.addToCommitment === 'both') {
-                                bellaTotal += expense.amount;
-                            }
-                        }
-                    }
-                });
-                
-                // Calculate from commitments
-                danialCommitments.forEach(commitment => {
-                    // Apply month filter if set
-                    if (currentMonthFilter && commitment.month !== currentMonthFilter) {
-                        return;
-                    }
-                    
-                    if (commitment.status === 'pending') {
-                        danialTotal += commitment.amount;
-                    }
-                });
-                
-                bellaCommitments.forEach(commitment => {
-                    // Apply month filter if set
-                    if (currentMonthFilter && commitment.month !== currentMonthFilter) {
-                        return;
-                    }
-                    
-                    if (commitment.status === 'pending') {
-                        bellaTotal += commitment.amount;
-                    }
-                });
-                
-                // Calculate change
-                const danialChange = danialTotal - previousDanialTotal;
-                const bellaChange = bellaTotal - previousBellaTotal;
-                const totalChange = (danialTotal + bellaTotal) - previousTotalAmount;
-                
-                // Update UI
-                document.getElementById('danialTotal').textContent = danialTotal.toFixed(2);
-                document.getElementById('bellaTotal').textContent = bellaTotal.toFixed(2);
-                document.getElementById('totalAmount').textContent = (danialTotal + bellaTotal).toFixed(2);
-                
-                // Update change indicators
-                updateChangeIndicator('danialChange', danialChange);
-                updateChangeIndicator('bellaChange', bellaChange);
-                updateChangeIndicator('totalChange', totalChange);
-                
-                // Update previous totals
-                previousDanialTotal = danialTotal;
-                previousBellaTotal = bellaTotal;
-                previousTotalAmount = danialTotal + bellaTotal;
-            }
-            
-            function updateChangeIndicator(elementId, change) {
-                const element = document.getElementById(elementId);
-                const changeSpan = element.querySelector('span');
-                
-                if (change === 0) {
-                    element.style.display = 'none';
-                } else {
-                    element.style.display = 'flex';
-                    changeSpan.textContent = Math.abs(change).toFixed(2);
-                    
-                    if (change > 0) {
-                        element.className = 'summary-change positive';
-                        element.querySelector('i').className = 'bi bi-arrow-up';
+                    if (this.value === 'One-time Payment') {
+                        paymentMethodDiv.style.display = 'block';
+                        installmentDiv.style.display = 'block';
+                        
+                        // Add payment methods for one-time payment
+                        const methods = ['Debit Card', 'Credit Card'];
+                        methods.forEach(method => {
+                            const option = document.createElement('option');
+                            option.value = method;
+                            option.textContent = method;
+                            paymentMethod.appendChild(option);
+                        });
+                    } else if (this.value === 'BNPL') {
+                        paymentMethodDiv.style.display = 'block';
+                        installmentDiv.style.display = 'none';
+                        
+                        // Add BNPL options
+                        const bnplOptions = ['Spay', 'Atome', 'GrabPayLater', 'Others'];
+                        bnplOptions.forEach(option => {
+                            const opt = document.createElement('option');
+                            opt.value = option;
+                            opt.textContent = option;
+                            paymentMethod.appendChild(opt);
+                        });
                     } else {
-                        element.className = 'summary-change negative';
-                        element.querySelector('i').className = 'bi bi-arrow-down';
+                        paymentMethodDiv.style.display = 'none';
+                        installmentDiv.style.display = 'none';
                     }
-                }
-            }
-            
-            // Refresh summary button
-            document.getElementById('refreshSummary').addEventListener('click', async function() {
-                await loadAllData();
-                showToast('Summary refreshed!');
-            });
-            
-            // Month filter functionality
-            const monthFilterDisplay = document.getElementById('monthFilterDisplay');
-            const monthFilterDropdown = document.getElementById('monthFilterDropdown');
-            const monthFilterText = document.getElementById('monthFilterText');
-            
-            monthFilterDisplay.addEventListener('click', function() {
-                monthFilterDropdown.classList.toggle('show');
-                monthFilterDisplay.classList.toggle('active');
-            });
-            
-            monthFilterDropdown.addEventListener('click', function(e) {
-                if (e.target.classList.contains('month-option')) {
-                    const value = e.target.getAttribute('data-value');
-                    const text = e.target.textContent;
-                    
-                    // Update selected option
-                    monthFilterDropdown.querySelectorAll('.month-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                    e.target.classList.add('selected');
-                    
-                    // Update display and filter
-                    monthFilterText.textContent = text;
-                    currentMonthFilter = value;
-                    
-                    // Close dropdown
-                    monthFilterDropdown.classList.remove('show');
-                    monthFilterDisplay.classList.remove('active');
-                    
-                    // Update the view
-                    updateView();
-                }
-            });
-            
-            // Render expenses table
-            function renderExpenses() {
-                const expensesTableBody = document.getElementById('expensesTableBody');
-                const expensesEmptyState = document.getElementById('expensesEmptyState');
-                expensesTableBody.innerHTML = '';
+                });
                 
-                // Filter expenses by month if filter is set
-                let filteredExpenses = expenses;
-                if (currentMonthFilter) {
-                    filteredExpenses = expenses.filter(expense => expense.month === currentMonthFilter);
-                }
-                
-                // Apply search filter if search term is set
-                if (currentSearchTerm) {
-                    filteredExpenses = filteredExpenses.filter(expense => {
-                        return expense.description.toLowerCase().includes(currentSearchTerm) ||
-                               expense.category.toLowerCase().includes(currentSearchTerm) ||
-                               formatMonthReadable(expense.month).toLowerCase().includes(currentSearchTerm);
-                    });
-                }
-                
-                if (filteredExpenses.length === 0) {
-                    expensesEmptyState.style.display = 'block';
-                    return;
-                } else {
-                    expensesEmptyState.style.display = 'none';
-                }
-                
-                filteredExpenses.forEach(expense => {
-                    const row = document.createElement('tr');
+                // Edit expense category change handler
+                editExpenseCategory.addEventListener('change', function() {
+                    editPaymentMethod.innerHTML = '<option value="">Select Payment Method</option>';
                     
-                    let categoryText = '';
-                    switch(expense.category) {
-                        case 'debit': categoryText = 'Debit Card'; break;
-                        case 'credit': categoryText = 'Credit Card'; break;
-                        case 'spay': categoryText = 'SPay'; break;
-                        case 'atome': categoryText = 'Atome'; break;
-                        case 'grabpaylater': categoryText = 'GrabPay'; break;
-                        case 'otherbnpl': categoryText = 'Other BNPL'; break;
+                    if (this.value === 'One-time Payment') {
+                        editPaymentMethodDiv.style.display = 'block';
+                        editInstallmentDiv.style.display = 'block';
+                        
+                        // Add payment methods for one-time payment
+                        const methods = ['Debit Card', 'Credit Card'];
+                        methods.forEach(method => {
+                            const option = document.createElement('option');
+                            option.value = method;
+                            option.textContent = method;
+                            editPaymentMethod.appendChild(option);
+                        });
+                    } else if (this.value === 'BNPL') {
+                        editPaymentMethodDiv.style.display = 'block';
+                        editInstallmentDiv.style.display = 'none';
+                        
+                        // Add BNPL options
+                        const bnplOptions = ['Spay', 'Atome', 'GrabPayLater', 'Others'];
+                        bnplOptions.forEach(option => {
+                            const opt = document.createElement('option');
+                            opt.value = option;
+                            opt.textContent = option;
+                            editPaymentMethod.appendChild(opt);
+                        });
+                    } else {
+                        editPaymentMethodDiv.style.display = 'none';
+                        editInstallmentDiv.style.display = 'none';
+                    }
+                });
+                
+                paymentMethod.addEventListener('change', function() {
+                    if (this.value === 'Credit Card' && expenseCategory.value === 'One-time Payment') {
+                        installmentDiv.style.display = 'block';
+                    } else {
+                        installmentDiv.style.display = 'none';
+                    }
+                });
+                
+                editPaymentMethod.addEventListener('change', function() {
+                    if (this.value === 'Credit Card' && editExpenseCategory.value === 'One-time Payment') {
+                        editInstallmentDiv.style.display = 'block';
+                    } else {
+                        editInstallmentDiv.style.display = 'none';
+                    }
+                });
+                
+                expensePerson.addEventListener('change', function() {
+                    if (this.value === 'Both') {
+                        splitAmountDiv.style.display = 'block';
+                        // Auto-calculate split amounts
+                        const amount = parseFloat(expenseAmount.value) || 0;
+                        danialAmount.value = (amount / 2).toFixed(2);
+                        bellaAmount.value = (amount / 2).toFixed(2);
+                    } else {
+                        splitAmountDiv.style.display = 'none';
+                    }
+                });
+                
+                editExpensePerson.addEventListener('change', function() {
+                    if (this.value === 'Both') {
+                        editSplitAmountDiv.style.display = 'block';
+                        // Auto-calculate split amounts
+                        const amount = parseFloat(editExpenseAmount.value) || 0;
+                        editDanialAmount.value = (amount / 2).toFixed(2);
+                        editBellaAmount.value = (amount / 2).toFixed(2);
+                    } else {
+                        editSplitAmountDiv.style.display = 'none';
+                    }
+                });
+                
+                expenseAmount.addEventListener('input', function() {
+                    if (expensePerson.value === 'Both') {
+                        const amount = parseFloat(this.value) || 0;
+                        danialAmount.value = (amount / 2).toFixed(2);
+                        bellaAmount.value = (amount / 2).toFixed(2);
+                    }
+                });
+                
+                editExpenseAmount.addEventListener('input', function() {
+                    if (editExpensePerson.value === 'Both') {
+                        const amount = parseFloat(this.value) || 0;
+                        editDanialAmount.value = (amount / 2).toFixed(2);
+                        editBellaAmount.value = (amount / 2).toFixed(2);
+                    }
+                });
+                
+                addToCommitment.addEventListener('change', function() {
+                    if (this.checked) {
+                        commitmentPersonDiv.style.display = 'block';
+                        commitmentMonthDiv.style.display = 'block';
+                        
+                        // Set default values
+                        if (expensePerson.value !== 'Both') {
+                            document.getElementById('commitmentPerson').value = expensePerson.value;
+                        }
+                    } else {
+                        commitmentPersonDiv.style.display = 'none';
+                        commitmentMonthDiv.style.display = 'none';
+                    }
+                });
+                
+                // Save expense
+                const saveExpenseBtn = document.getElementById('saveExpenseBtn');
+                saveExpenseBtn.addEventListener('click', function() {
+                    const date = document.getElementById('expenseDate').value;
+                    const description = document.getElementById('expenseDescription').value;
+                    const category = document.getElementById('expenseCategory').value;
+                    const method = document.getElementById('paymentMethod').value;
+                    const amount = parseFloat(document.getElementById('expenseAmount').value);
+                    const person = document.getElementById('expensePerson').value;
+                    const installmentPeriod = document.getElementById('installmentPeriod').value;
+                    
+                    if (!date || !description || !category || !method || !amount || !person) {
+                        alert('Please fill in all required fields');
+                        return;
                     }
                     
-                    let installmentText = expense.installment === 'onetime' ? 'One-time' : `${expense.installment}m`;
-                    
-                    row.innerHTML = `
-                        <td>${formatMonthReadable(expense.month)}</td>
-                        <td>${expense.description}</td>
-                        <td>RM${expense.amount.toFixed(2)}</td>
-                        <td>${categoryText}</td>
-                        <td>${installmentText}</td>
-                        <td>
-                            <span class="badge status-badge ${expense.status === 'paid' ? 'status-paid' : 'status-pending'}">
-                                ${expense.status === 'paid' ? 'Paid' : 'Pending'}
-                            </span>
-                        </td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn btn-sm btn-outline-primary edit-expense" data-id="${expense.id}" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                ${expense.status === 'pending' ? 
-                                    `<button class="btn btn-sm btn-paid mark-expense-paid" data-id="${expense.id}">
-                                        <i class="bi bi-check-circle"></i>
-                                    </button>` : ''}
-                                <button class="btn btn-sm btn-outline-danger delete-expense" data-id="${expense.id}" title="Delete">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    `;
-                    
-                    expensesTableBody.appendChild(row);
-                });
-                
-                // Add delete event listeners
-                document.querySelectorAll('.delete-expense').forEach(button => {
-                    button.addEventListener('click', async function() {
-                        const expenseId = parseInt(this.getAttribute('data-id'));
-                        
-                        try {
-                            const formData = new FormData();
-                            formData.append('action', 'deleteExpense');
-                            formData.append('id', expenseId);
-                            
-                            await handleApiCall(API_BASE_URL, {
-                                method: 'POST',
-                                body: formData
-                            });
-                            
-                            // Refresh data from server
-                            await loadAllData();
-                            showToast('Expense deleted successfully!');
-                        } catch (error) {
-                            // Error is already handled in handleApiCall
-                        }
-                    });
-                });
-                
-                // Add mark as paid event listeners
-                document.querySelectorAll('.mark-expense-paid').forEach(button => {
-                    button.addEventListener('click', async function() {
-                        const expenseId = parseInt(this.getAttribute('data-id'));
-                        const expense = expenses.find(e => e.id === expenseId);
-                        
-                        if (expense) {
-                            expense.status = 'paid';
-                            
-                            try {
-                                const formData = new FormData();
-                                formData.append('action', 'updateExpense');
-                                formData.append('data', JSON.stringify(expense));
-                                
-                                await handleApiCall(API_BASE_URL, {
-                                    method: 'POST',
-                                    body: formData
-                                });
-                                
-                                // Refresh data from server
-                                await loadAllData();
-                                showToast('Expense marked as paid!');
-                            } catch (error) {
-                                // Error is already handled in handleApiCall
-                            }
-                        }
-                    });
-                });
-                
-                // Add edit event listeners
-                document.querySelectorAll('.edit-expense').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const expenseId = parseInt(this.getAttribute('data-id'));
-                        const expense = expenses.find(e => e.id === expenseId);
-                        
-                        if (expense) {
-                            // Populate form with expense data
-                            document.getElementById('expenseId').value = expense.id;
-                            document.getElementById('expenseDescription').value = expense.description;
-                            document.getElementById('expenseAmount').value = expense.amount;
-                            document.getElementById('expenseMonth').value = expense.month;
-                            document.getElementById('expenseMonthText').textContent = formatMonthReadable(expense.month);
-                            document.getElementById('expenseCategory').value = expense.category;
-                            document.getElementById('splitBill').value = expense.splitBill ? 'yes' : 'no';
-                            document.getElementById('addToCommitment').value = expense.addToCommitment;
-                            
-                            // Show installment options if applicable
-                            if (expense.category === 'credit' || expense.category === 'spay' || 
-                                expense.category === 'atome' || expense.category === 'grabpaylater' || 
-                                expense.category === 'otherbnpl') {
-                                installmentOptions.style.display = 'block';
-                                monthlyPaymentSection.style.display = 'block';
-                                document.getElementById('installmentPlan').value = expense.installment;
-                                document.getElementById('monthlyPayment').value = expense.monthlyPayment || '';
-                            }
-                            
-                            if (expense.splitBill) {
-                                splitOptions.classList.add('active');
-                                document.getElementById('danialPercentage').value = expense.danialPercentage;
-                                document.getElementById('bellaPercentage').value = expense.bellaPercentage;
-                                calculateSplitAmounts();
-                            }
-                            
-                            // Show status section and set the current status
-                            statusSection.style.display = 'block';
-                            
-                            // Reset status toggle
-                            statusOptions.forEach(opt => opt.classList.remove('active'));
-                            if (expense.status === 'paid') {
-                                document.querySelector('.status-option.paid').classList.add('active');
-                            } else {
-                                document.querySelector('.status-option.pending').classList.add('active');
-                            }
-                            expenseStatusInput.value = expense.status;
-                            
-                            // Update form UI for editing
-                            formTitle.innerHTML = '<i class="bi bi-pencil-square"></i> Edit Expense';
-                            saveExpenseBtn.innerHTML = '<i class="bi bi-check-circle"></i> Update Expense';
-                            cancelEditBtn.style.display = 'block';
-                            document.querySelector('.card-body').classList.add('edit-mode');
-                            
-                            // Show form
-                            expenseForm.style.display = 'block';
-                            toggleFormBtn.innerHTML = '<i class="bi bi-dash"></i>';
-                            
-                            // Scroll to top
-                            window.scrollTo(0, 0);
-                        }
-                    });
-                });
-            }
-            
-            // Commitment modal functionality
-            const commitmentModal = new bootstrap.Modal(document.getElementById('commitmentModal'));
-            const addDanialCommitmentBtn = document.getElementById('addDanialCommitment');
-            const addBellaCommitmentBtn = document.getElementById('addBellaCommitment');
-            const commitmentModalTitle = document.getElementById('commitmentModalTitle');
-            const commitmentPerson = document.getElementById('commitmentPerson');
-            const commitmentId = document.getElementById('commitmentId');
-            const saveCommitmentBtn = document.getElementById('saveCommitment');
-            const commitmentStatusSection = document.getElementById('commitmentStatusSection');
-            
-            // Update month options every time the modal is shown
-            commitmentModal._element.addEventListener('show.bs.modal', function() {
-                populateMonthOptions('commitmentMonthDropdown');
-                
-                // Set default month based on current filter or current month
-                if (!commitmentId.value) {
-                    // For new commitments, use the filtered month if set, otherwise use current month
-                    const defaultMonth = currentMonthFilter || formatMonth(new Date());
-                    document.getElementById('commitmentMonth').value = defaultMonth;
-                    document.getElementById('commitmentMonthText').textContent = formatMonthReadable(defaultMonth);
-                    
-                    // Update the selected option in the dropdown
-                    const dropdown = document.getElementById('commitmentMonthDropdown');
-                    dropdown.querySelectorAll('.month-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                        if (opt.getAttribute('data-value') === defaultMonth) {
-                            opt.classList.add('selected');
-                        }
-                    });
-                }
-            });
-            
-            addDanialCommitmentBtn.addEventListener('click', function() {
-                commitmentModalTitle.innerHTML = '<i class="bi bi-person-circle"></i> Add Danial\'s Commitment';
-                commitmentPerson.value = 'danial';
-                commitmentId.value = '';
-                document.getElementById('commitmentDescription').value = '';
-                document.getElementById('commitmentAmount').value = '';
-                commitmentStatusSection.style.display = 'none';
-                saveCommitmentBtn.innerHTML = '<i class="bi bi-check-circle"></i> Save';
-                
-                // Reset status toggle
-                commitmentStatusOptions.forEach(opt => opt.classList.remove('active'));
-                document.querySelector('#commitmentModal .status-option.pending').classList.add('active');
-                commitmentStatusInput.value = 'pending';
-                
-                commitmentModal.show();
-            });
-            
-            addBellaCommitmentBtn.addEventListener('click', function() {
-                commitmentModalTitle.innerHTML = '<i class="bi bi-person-circle"></i> Add Bella\'s Commitment';
-                commitmentPerson.value = 'bella';
-                commitmentId.value = '';
-                document.getElementById('commitmentDescription').value = '';
-                document.getElementById('commitmentAmount').value = '';
-                commitmentStatusSection.style.display = 'none';
-                saveCommitmentBtn.innerHTML = '<i class="bi bi-check-circle"></i> Save';
-                
-                // Reset status toggle
-                commitmentStatusOptions.forEach(opt => opt.classList.remove('active'));
-                document.querySelector('#commitmentModal .status-option.pending').classList.add('active');
-                commitmentStatusInput.value = 'pending';
-                
-                commitmentModal.show();
-            });
-            
-            saveCommitmentBtn.addEventListener('click', async function() {
-                const month = document.getElementById('commitmentMonth').value;
-                const description = document.getElementById('commitmentDescription').value;
-                const amount = parseFloat(document.getElementById('commitmentAmount').value);
-                const person = commitmentPerson.value;
-                const isEditing = commitmentId.value !== '';
-                
-                // Get status from hidden input
-                const status = commitmentStatusInput.value;
-                
-                if (month && description && amount) {
-                    const commitment = {
-                        id: isEditing ? parseInt(commitmentId.value) : Date.now(),
-                        month: month,
-                        description: description,
-                        amount: amount,
-                        status: status
+                    // Create expense object
+                    const expense = {
+                        id: Date.now(),
+                        date,
+                        description,
+                        category,
+                        paymentMethod: method,
+                        amount,
+                        person,
+                        installmentPeriod: installmentPeriod || '0',
+                        completed: false
                     };
                     
-                    try {
-                        if (person === 'danial') {
-                            const action = isEditing ? 'updateDanialCommitment' : 'addDanialCommitment';
-                            const formData = new FormData();
-                            formData.append('action', action);
-                            formData.append('data', JSON.stringify(commitment));
-                            
-                            await handleApiCall(API_BASE_URL, {
-                                method: 'POST',
-                                body: formData
-                            });
-                        } else {
-                            const action = isEditing ? 'updateBellaCommitment' : 'addBellaCommitment';
-                            const formData = new FormData();
-                            formData.append('action', action);
-                            formData.append('data', JSON.stringify(commitment));
-                            
-                            await handleApiCall(API_BASE_URL, {
-                                method: 'POST',
-                                body: formData
-                            });
+                    // Add to expenses array
+                    expenses.push(expense);
+                    localStorage.setItem('expenses', JSON.stringify(expenses));
+                    
+                    // If add to commitment is checked
+                    if (addToCommitment.checked) {
+                        const commitmentPerson = document.getElementById('commitmentPerson').value;
+                        const commitmentMonth = document.getElementById('commitmentMonth').value;
+                        
+                        if (!commitmentPerson || !commitmentMonth) {
+                            alert('Please select commitment person and month');
+                            return;
                         }
                         
-                        // Refresh data from server
-                        await loadAllData();
-                        commitmentModal.hide();
-                        showToast(isEditing ? 'Commitment updated successfully!' : 'Commitment added successfully!');
-                    } catch (error) {
-                        // Error is already handled in handleApiCall
+                        // Create commitment(s)
+                        if (commitmentPerson === 'Both') {
+                            // Create two separate commitments for Danial and Bella
+                            const danialCommitment = {
+                                id: Date.now() + 1,
+                                person: 'Danial',
+                                description,
+                                amount: parseFloat(danialAmount.value) || (amount / 2),
+                                month: commitmentMonth,
+                                completed: false
+                            };
+                            
+                            const bellaCommitment = {
+                                id: Date.now() + 2,
+                                person: 'Bella',
+                                description,
+                                amount: parseFloat(bellaAmount.value) || (amount / 2),
+                                month: commitmentMonth,
+                                completed: false
+                            };
+                            
+                            commitments.push(danialCommitment);
+                            commitments.push(bellaCommitment);
+                        } else {
+                            const commitment = {
+                                id: Date.now() + 1,
+                                person: commitmentPerson,
+                                description,
+                                amount: person === 'Both' ? 
+                                    (parseFloat(document.getElementById(commitmentPerson.toLowerCase() + 'Amount').value) || (amount / 2)) : 
+                                    amount,
+                                month: commitmentMonth,
+                                completed: false
+                            };
+                            
+                            commitments.push(commitment);
+                        }
+                        
+                        localStorage.setItem('commitments', JSON.stringify(commitments));
+                        renderCommitments();
                     }
-                }
-            });
-            
-            // Render commitments tables
-            function renderCommitments() {
-                const danialCommitmentsTableBody = document.getElementById('danialCommitmentsTableBody');
-                const bellaCommitmentsTableBody = document.getElementById('bellaCommitmentsTableBody');
-                const danialCommitmentsEmptyState = document.getElementById('danialCommitmentsEmptyState');
-                const bellaCommitmentsEmptyState = document.getElementById('bellaCommitmentsEmptyState');
-                
-                danialCommitmentsTableBody.innerHTML = '';
-                bellaCommitmentsTableBody.innerHTML = '';
-                
-                // Filter commitments by month if filter is set
-                let filteredDanialCommitments = danialCommitments;
-                let filteredBellaCommitments = bellaCommitments;
-                
-                if (currentMonthFilter) {
-                    filteredDanialCommitments = danialCommitments.filter(commitment => commitment.month === currentMonthFilter);
-                    filteredBellaCommitments = bellaCommitments.filter(commitment => commitment.month === currentMonthFilter);
-                }
-                
-                // Apply search filter if search term is set
-                if (currentSearchTerm) {
-                    filteredDanialCommitments = filteredDanialCommitments.filter(commitment => {
-                        return commitment.description.toLowerCase().includes(currentSearchTerm) ||
-                               formatMonthReadable(commitment.month).toLowerCase().includes(currentSearchTerm);
-                    });
                     
-                    filteredBellaCommitments = filteredBellaCommitments.filter(commitment => {
-                        return commitment.description.toLowerCase().includes(currentSearchTerm) ||
-                               formatMonthReadable(commitment.month).toLowerCase().includes(currentSearchTerm);
-                    });
-                }
-                
-                // Render Danial's commitments
-                if (filteredDanialCommitments.length === 0) {
-                    danialCommitmentsEmptyState.style.display = 'block';
-                } else {
-                    danialCommitmentsEmptyState.style.display = 'none';
+                    // Reset form and close modal
+                    document.getElementById('expenseForm').reset();
+                    document.getElementById('expenseDate').value = today;
+                    paymentMethodDiv.style.display = 'none';
+                    installmentDiv.style.display = 'none';
+                    splitAmountDiv.style.display = 'none';
+                    commitmentPersonDiv.style.display = 'none';
+                    commitmentMonthDiv.style.display = 'none';
                     
-                    filteredDanialCommitments.forEach(commitment => {
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('addExpenseModal'));
+                    modal.hide();
+                    
+                    // Refresh expenses table
+                    renderExpenses();
+                });
+                
+                // Update expense
+                const updateExpenseBtn = document.getElementById('updateExpenseBtn');
+                updateExpenseBtn.addEventListener('click', function() {
+                    const id = parseInt(document.getElementById('editExpenseId').value);
+                    const date = document.getElementById('editExpenseDate').value;
+                    const description = document.getElementById('editExpenseDescription').value;
+                    const category = document.getElementById('editExpenseCategory').value;
+                    const method = document.getElementById('editPaymentMethod').value;
+                    const amount = parseFloat(document.getElementById('editExpenseAmount').value);
+                    const person = document.getElementById('editExpensePerson').value;
+                    const installmentPeriod = document.getElementById('editInstallmentPeriod').value;
+                    
+                    if (!date || !description || !category || !method || !amount || !person) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Find and update expense
+                    const expenseIndex = expenses.findIndex(expense => expense.id === id);
+                    if (expenseIndex !== -1) {
+                        expenses[expenseIndex] = {
+                            ...expenses[expenseIndex],
+                            date,
+                            description,
+                            category,
+                            paymentMethod: method,
+                            amount,
+                            person,
+                            installmentPeriod: installmentPeriod || '0'
+                        };
+                        
+                        localStorage.setItem('expenses', JSON.stringify(expenses));
+                        
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('editExpenseModal'));
+                        modal.hide();
+                        
+                        renderExpenses();
+                    }
+                });
+                
+                // Save commitment
+                const saveCommitmentBtn = document.getElementById('saveCommitmentBtn');
+                saveCommitmentBtn.addEventListener('click', function() {
+                    const person = document.getElementById('commitmentPersonSelect').value;
+                    const description = document.getElementById('commitmentDescription').value;
+                    const amount = parseFloat(document.getElementById('commitmentAmount').value);
+                    const month = document.getElementById('commitmentMonthSelect').value;
+                    
+                    if (!person || !description || !amount || !month) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    const commitment = {
+                        id: Date.now(),
+                        person,
+                        description,
+                        amount,
+                        month,
+                        completed: false
+                    };
+                    
+                    commitments.push(commitment);
+                    localStorage.setItem('commitments', JSON.stringify(commitments));
+                    
+                    // Reset form and close modal
+                    document.getElementById('commitmentForm').reset();
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('addCommitmentModal'));
+                    modal.hide();
+                    
+                    // Refresh commitments table
+                    renderCommitments();
+                });
+                
+                // Update commitment
+                const updateCommitmentBtn = document.getElementById('updateCommitmentBtn');
+                updateCommitmentBtn.addEventListener('click', function() {
+                    const id = parseInt(document.getElementById('editCommitmentId').value);
+                    const person = document.getElementById('editCommitmentPersonSelect').value;
+                    const description = document.getElementById('editCommitmentDescription').value;
+                    const amount = parseFloat(document.getElementById('editCommitmentAmount').value);
+                    const month = document.getElementById('editCommitmentMonthSelect').value;
+                    
+                    if (!person || !description || !amount || !month) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Find and update commitment
+                    const commitmentIndex = commitments.findIndex(commitment => commitment.id === id);
+                    if (commitmentIndex !== -1) {
+                        commitments[commitmentIndex] = {
+                            ...commitments[commitmentIndex],
+                            person,
+                            description,
+                            amount,
+                            month
+                        };
+                        
+                        localStorage.setItem('commitments', JSON.stringify(commitments));
+                        
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('editCommitmentModal'));
+                        modal.hide();
+                        
+                        renderCommitments();
+                    }
+                });
+                
+                // Delete confirmation functionality
+                const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+                const deleteItemType = document.getElementById('deleteItemType');
+                const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+                
+                confirmDeleteBtn.addEventListener('click', function() {
+                    if (deleteType === 'expense') {
+                        expenses = expenses.filter(expense => expense.id !== deleteId);
+                        localStorage.setItem('expenses', JSON.stringify(expenses));
+                        renderExpenses();
+                    } else if (deleteType === 'commitment') {
+                        commitments = commitments.filter(commitment => commitment.id !== deleteId);
+                        localStorage.setItem('commitments', JSON.stringify(commitments));
+                        renderCommitments();
+                    }
+                    
+                    deleteModal.hide();
+                });
+                
+                // Render expenses table
+                function renderExpenses(filteredExpenses = expenses) {
+                    const tbody = document.getElementById('expensesTableBody');
+                    tbody.innerHTML = '';
+                    
+                    if (filteredExpenses.length === 0) {
                         const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="8" class="text-center">No expenses found</td>';
+                        tbody.appendChild(row);
+                        return;
+                    }
+                    
+                    filteredExpenses.forEach(expense => {
+                        const row = document.createElement('tr');
+                        if (expense.completed) {
+                            row.classList.add('completed-row');
+                        }
+                        
+                        let personBadge = '';
+                        if (expense.person === 'Danial') {
+                            personBadge = '<span class="person-badge danial-badge">Danial</span>';
+                        } else if (expense.person === 'Bella') {
+                            personBadge = '<span class="person-badge bella-badge">Bella</span>';
+                        } else {
+                            personBadge = '<span class="person-badge both-badge">Both</span>';
+                        }
+                        
+                        let paymentDetails = expense.paymentMethod;
+                        if (expense.category === 'One-time Payment' && expense.paymentMethod === 'Credit Card' && expense.installmentPeriod !== '0') {
+                            paymentDetails += ` (${expense.installmentPeriod} months)`;
+                        }
+                        
                         row.innerHTML = `
-                            <td>${formatMonthReadable(commitment.month)}</td>
-                            <td>${commitment.description}</td>
-                            <td>RM${commitment.amount.toFixed(2)}</td>
                             <td>
-                                <span class="badge status-badge ${commitment.status === 'paid' ? 'status-paid' : 'status-pending'}">
-                                    ${commitment.status === 'paid' ? 'Paid' : 'Pending'}
-                                </span>
-                            </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn btn-sm btn-outline-primary edit-commitment" data-id="${commitment.id}" data-person="danial" title="Edit">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    ${commitment.status === 'pending' ? 
-                                        `<button class="btn btn-sm btn-paid mark-commitment-paid" data-id="${commitment.id}" data-person="danial">
-                                            <i class="bi bi-check-circle"></i>
-                                        </button>` : ''}
-                                    <button class="btn btn-sm btn-outline-danger delete-commitment" data-id="${commitment.id}" data-person="danial" title="Delete">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                <div class="form-check">
+                                    <input class="form-check-input expense-checkbox" type="checkbox" 
+                                        data-id="${expense.id}" ${expense.completed ? 'checked' : ''}>
                                 </div>
                             </td>
+                            <td>${new Date(expense.date).toLocaleDateString()}</td>
+                            <td>${expense.description}</td>
+                            <td>${expense.category}</td>
+                            <td>${paymentDetails}</td>
+                            <td>RM${expense.amount.toFixed(2)}</td>
+                            <td>${personBadge}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary edit-expense" data-id="${expense.id}">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger delete-expense" data-id="${expense.id}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
                         `;
-                        danialCommitmentsTableBody.appendChild(row);
+                        
+                        tbody.appendChild(row);
                     });
-                }
-                
-                // Render Bella's commitments
-                if (filteredBellaCommitments.length === 0) {
-                    bellaCommitmentsEmptyState.style.display = 'block';
-                } else {
-                    bellaCommitmentsEmptyState.style.display = 'none';
                     
-                    filteredBellaCommitments.forEach(commitment => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${formatMonthReadable(commitment.month)}</td>
-                            <td>${commitment.description}</td>
-                            <td>RM${commitment.amount.toFixed(2)}</td>
-                            <td>
-                                <span class="badge status-badge ${commitment.status === 'paid' ? 'status-paid' : 'status-pending'}">
-                                    ${commitment.status === 'paid' ? 'Paid' : 'Pending'}
-                                </span>
-                            </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn btn-sm btn-outline-primary edit-commitment" data-id="${commitment.id}" data-person="bella" title="Edit">
-                                        <i class="bi bi-pencil"></i>
-                                    </button>
-                                    ${commitment.status === 'pending' ? 
-                                        `<button class="btn btn-sm btn-paid mark-commitment-paid" data-id="${commitment.id}" data-person="bella">
-                                            <i class="bi bi-check-circle"></i>
-                                        </button>` : ''}
-                                    <button class="btn btn-sm btn-outline-danger delete-commitment" data-id="${commitment.id}" data-person="bella" title="Delete">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        `;
-                        bellaCommitmentsTableBody.appendChild(row);
+                    // Add event listeners to checkboxes
+                    document.querySelectorAll('.expense-checkbox').forEach(checkbox => {
+                        checkbox.addEventListener('change', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const expense = expenses.find(exp => exp.id === id);
+                            if (expense) {
+                                expense.completed = this.checked;
+                                localStorage.setItem('expenses', JSON.stringify(expenses));
+                                renderExpenses();
+                            }
+                        });
+                    });
+                    
+                    // Add event listeners to edit buttons
+                    document.querySelectorAll('.edit-expense').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const expense = expenses.find(exp => exp.id === id);
+                            if (expense) {
+                                // Populate edit form
+                                document.getElementById('editExpenseId').value = expense.id;
+                                document.getElementById('editExpenseDate').value = expense.date;
+                                document.getElementById('editExpenseDescription').value = expense.description;
+                                document.getElementById('editExpenseCategory').value = expense.category;
+                                
+                                // Trigger category change to populate payment methods
+                                editExpenseCategory.dispatchEvent(new Event('change'));
+                                
+                                // Set payment method after options are populated
+                                setTimeout(() => {
+                                    document.getElementById('editPaymentMethod').value = expense.paymentMethod;
+                                    if (expense.category === 'One-time Payment' && expense.paymentMethod === 'Credit Card') {
+                                        document.getElementById('editInstallmentPeriod').value = expense.installmentPeriod || '0';
+                                    }
+                                }, 100);
+                                
+                                document.getElementById('editExpenseAmount').value = expense.amount;
+                                document.getElementById('editExpensePerson').value = expense.person;
+                                
+                                if (expense.person === 'Both') {
+                                    editSplitAmountDiv.style.display = 'block';
+                                    document.getElementById('editDanialAmount').value = (expense.amount / 2).toFixed(2);
+                                    document.getElementById('editBellaAmount').value = (expense.amount / 2).toFixed(2);
+                                } else {
+                                    editSplitAmountDiv.style.display = 'none';
+                                }
+                                
+                                // Show modal
+                                const modal = new bootstrap.Modal(document.getElementById('editExpenseModal'));
+                                modal.show();
+                            }
+                        });
+                    });
+                    
+                    // Add event listeners to delete buttons
+                    document.querySelectorAll('.delete-expense').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            deleteId = id;
+                            deleteType = 'expense';
+                            deleteItemType.textContent = 'expense';
+                            deleteModal.show();
+                        });
                     });
                 }
                 
-                // Add delete event listeners
-                document.querySelectorAll('.delete-commitment').forEach(button => {
-                    button.addEventListener('click', async function() {
-                        const commitmentId = parseInt(this.getAttribute('data-id'));
-                        const person = this.getAttribute('data-person');
+                // Render commitments
+                function renderCommitments(filteredCommitments = commitments) {
+                    const container = document.getElementById('commitmentsContainer');
+                    container.innerHTML = '';
+                    
+                    // Group commitments by person
+                    const danialCommitments = filteredCommitments.filter(c => c.person === 'Danial');
+                    const bellaCommitments = filteredCommitments.filter(c => c.person === 'Bella');
+                    
+                    // Create Danial's commitments card
+                    if (danialCommitments.length > 0) {
+                        const danialCard = document.createElement('div');
+                        danialCard.className = 'commitment-card';
                         
-                        try {
-                            const action = person === 'danial' ? 'deleteDanialCommitment' : 'deleteBellaCommitment';
-                            const formData = new FormData();
-                            formData.append('action', action);
-                            formData.append('id', commitmentId);
-                            
-                            await handleApiCall(API_BASE_URL, {
-                                method: 'POST',
-                                body: formData
-                            });
-                            
-                            // Refresh data from server
-                            await loadAllData();
-                            showToast('Commitment deleted successfully!');
-                        } catch (error) {
-                            // Error is already handled in handleApiCall
-                        }
-                    });
-                });
-                
-                // Add mark as paid event listeners
-                document.querySelectorAll('.mark-commitment-paid').forEach(button => {
-                    button.addEventListener('click', async function() {
-                        const commitmentId = parseInt(this.getAttribute('data-id'));
-                        const person = this.getAttribute('data-person');
+                        let danialRows = '';
+                        danialCommitments.forEach(commitment => {
+                            danialRows += `
+                                <tr ${commitment.completed ? 'class="completed-row"' : ''}>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input commitment-checkbox" type="checkbox" 
+                                                data-id="${commitment.id}" ${commitment.completed ? 'checked' : ''}>
+                                        </div>
+                                    </td>
+                                    <td>${new Date(commitment.month + '-01').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</td>
+                                    <td>${commitment.description}</td>
+                                    <td>RM${commitment.amount.toFixed(2)}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary edit-commitment" data-id="${commitment.id}">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger delete-commitment" data-id="${commitment.id}">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
                         
-                        let commitment;
-                        if (person === 'danial') {
-                            commitment = danialCommitments.find(c => c.id === commitmentId);
-                        } else {
-                            commitment = bellaCommitments.find(c => c.id === commitmentId);
-                        }
+                        danialCard.innerHTML = `
+                            <div class="commitment-header danial-header">Danial's Commitments</div>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Month</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${danialRows}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
                         
-                        if (commitment) {
-                            commitment.status = 'paid';
-                            
-                            try {
-                                const action = person === 'danial' ? 'updateDanialCommitment' : 'updateBellaCommitment';
-                                const formData = new FormData();
-                                formData.append('action', action);
-                                formData.append('data', JSON.stringify(commitment));
-                                
-                                await handleApiCall(API_BASE_URL, {
-                                    method: 'POST',
-                                    body: formData
-                                });
-                                
-                                // Refresh data from server
-                                await loadAllData();
-                                showToast('Commitment marked as paid!');
-                            } catch (error) {
-                                // Error is already handled in handleApiCall
+                        container.appendChild(danialCard);
+                    }
+                    
+                    // Create Bella's commitments card
+                    if (bellaCommitments.length > 0) {
+                        const bellaCard = document.createElement('div');
+                        bellaCard.className = 'commitment-card';
+                        
+                        let bellaRows = '';
+                        bellaCommitments.forEach(commitment => {
+                            bellaRows += `
+                                <tr ${commitment.completed ? 'class="completed-row"' : ''}>
+                                    <td>
+                                        <div class="form-check">
+                                            <input class="form-check-input commitment-checkbox" type="checkbox" 
+                                                data-id="${commitment.id}" ${commitment.completed ? 'checked' : ''}>
+                                        </div>
+                                    </td>
+                                    <td>${new Date(commitment.month + '-01').toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}</td>
+                                    <td>${commitment.description}</td>
+                                    <td>RM${commitment.amount.toFixed(2)}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary edit-commitment" data-id="${commitment.id}">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger delete-commitment" data-id="${commitment.id}">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        
+                        bellaCard.innerHTML = `
+                            <div class="commitment-header bella-header">Bella's Commitments</div>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Month</th>
+                                            <th>Description</th>
+                                            <th>Amount</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${bellaRows}
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                        
+                        container.appendChild(bellaCard);
+                    }
+                    
+                    if (danialCommitments.length === 0 && bellaCommitments.length === 0) {
+                        container.innerHTML = '<p class="text-center">No commitments found</p>';
+                    }
+                    
+                    // Add event listeners to checkboxes
+                    document.querySelectorAll('.commitment-checkbox').forEach(checkbox => {
+                        checkbox.addEventListener('change', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const commitment = commitments.find(c => c.id === id);
+                            if (commitment) {
+                                commitment.completed = this.checked;
+                                localStorage.setItem('commitments', JSON.stringify(commitments));
+                                renderCommitments();
                             }
-                        }
+                        });
                     });
-                });
-                
-                // Add edit event listeners
-                document.querySelectorAll('.edit-commitment').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const commitmentId = parseInt(this.getAttribute('data-id'));
-                        const person = this.getAttribute('data-person');
-                        
-                        let commitment;
-                        if (person === 'danial') {
-                            commitment = danialCommitments.find(c => c.id === commitmentId);
-                            commitmentModalTitle.innerHTML = '<i class="bi bi-pencil-square"></i> Edit Danial\'s Commitment';
-                        } else {
-                            commitment = bellaCommitments.find(c => c.id === commitmentId);
-                            commitmentModalTitle.innerHTML = '<i class="bi bi-pencil-square"></i> Edit Bella\'s Commitment';
-                        }
-                        
-                        if (commitment) {
-                            commitmentPerson.value = person;
-                            commitmentId.value = commitment.id;
-                            document.getElementById('commitmentMonth').value = commitment.month;
-                            document.getElementById('commitmentMonthText').textContent = formatMonthReadable(commitment.month);
-                            document.getElementById('commitmentDescription').value = commitment.description;
-                            document.getElementById('commitmentAmount').value = commitment.amount;
-                            
-                            // Show status section and set the current status
-                            commitmentStatusSection.style.display = 'block';
-                            
-                            // Reset status toggle
-                            commitmentStatusOptions.forEach(opt => opt.classList.remove('active'));
-                            if (commitment.status === 'paid') {
-                                document.querySelector('#commitmentModal .status-option.paid').classList.add('active');
-                            } else {
-                                document.querySelector('#commitmentModal .status-option.pending').classList.add('active');
+                    
+                    // Add event listeners to edit buttons
+                    document.querySelectorAll('.edit-commitment').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const commitment = commitments.find(c => c.id === id);
+                            if (commitment) {
+                                // Populate edit form
+                                document.getElementById('editCommitmentId').value = commitment.id;
+                                document.getElementById('editCommitmentPersonSelect').value = commitment.person;
+                                document.getElementById('editCommitmentDescription').value = commitment.description;
+                                document.getElementById('editCommitmentAmount').value = commitment.amount;
+                                document.getElementById('editCommitmentMonthSelect').value = commitment.month;
+                                
+                                // Show modal
+                                const modal = new bootstrap.Modal(document.getElementById('editCommitmentModal'));
+                                modal.show();
                             }
-                            commitmentStatusInput.value = commitment.status;
-                            
-                            saveCommitmentBtn.innerHTML = '<i class="bi bi-check-circle"></i> Update';
-                            commitmentModal.show();
-                        }
+                        });
                     });
+                    
+                    // Add event listeners to delete buttons
+                    document.querySelectorAll('.delete-commitment').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            deleteId = id;
+                            deleteType = 'commitment';
+                            deleteItemType.textContent = 'commitment';
+                            deleteModal.show();
+                        });
+                    });
+                }
+                
+                // Filter functionality for expenses
+                const searchExpenses = document.getElementById('searchExpenses');
+                const filterCategory = document.getElementById('filterCategory');
+                const filterPerson = document.getElementById('filterPerson');
+                const clearFilters = document.getElementById('clearFilters');
+                
+                function applyExpenseFilters() {
+                    const searchTerm = searchExpenses.value.toLowerCase();
+                    const categoryFilter = filterCategory.value;
+                    const personFilter = filterPerson.value;
+                    
+                    const filtered = expenses.filter(expense => {
+                        const matchesSearch = expense.description.toLowerCase().includes(searchTerm);
+                        const matchesCategory = !categoryFilter || expense.category === categoryFilter;
+                        const matchesPerson = !personFilter || expense.person === personFilter;
+                        
+                        return matchesSearch && matchesCategory && matchesPerson;
+                    });
+                    
+                    renderExpenses(filtered);
+                }
+                
+                searchExpenses.addEventListener('input', applyExpenseFilters);
+                filterCategory.addEventListener('change', applyExpenseFilters);
+                filterPerson.addEventListener('change', applyExpenseFilters);
+                
+                clearFilters.addEventListener('click', function() {
+                    searchExpenses.value = '';
+                    filterCategory.value = '';
+                    filterPerson.value = '';
+                    renderExpenses();
                 });
-            }
-            
-            // Search functionality
-            const searchInput = document.getElementById('searchInput');
-            
-            searchInput.addEventListener('input', function() {
-                currentSearchTerm = this.value.toLowerCase();
-                updateView();
-            });
-            
-            // Toast notification function
-            function showToast(message) {
-                const toastContainer = document.querySelector('.toast-container');
-                const toast = document.createElement('div');
-                toast.className = 'toast custom-toast';
-                toast.setAttribute('role', 'alert');
-                toast.setAttribute('aria-live', 'assertive');
-                toast.setAttribute('aria-atomic', 'true');
                 
-                toast.innerHTML = `
-                    <div class="toast-body">
-                        ${message}
-                    </div>
-                `;
+                // Filter functionality for commitments
+                const searchCommitments = document.getElementById('searchCommitments');
+                const filterCommitmentPerson = document.getElementById('filterCommitmentPerson');
+                const filterMonth = document.getElementById('filterMonth');
+                const clearCommitmentFilters = document.getElementById('clearCommitmentFilters');
                 
-                toastContainer.appendChild(toast);
+                function applyCommitmentFilters() {
+                    const searchTerm = searchCommitments.value.toLowerCase();
+                    const personFilter = filterCommitmentPerson.value;
+                    const monthFilter = filterMonth.value;
+                    
+                    const filtered = commitments.filter(commitment => {
+                        const matchesSearch = commitment.description.toLowerCase().includes(searchTerm);
+                        const matchesPerson = !personFilter || commitment.person === personFilter;
+                        const matchesMonth = !monthFilter || commitment.month === monthFilter;
+                        
+                        return matchesSearch && matchesPerson && matchesMonth;
+                    });
+                    
+                    renderCommitments(filtered);
+                }
                 
-                const bsToast = new bootstrap.Toast(toast, {
-                    autohide: true,
-                    delay: 3000
+                searchCommitments.addEventListener('input', applyCommitmentFilters);
+                filterCommitmentPerson.addEventListener('change', applyCommitmentFilters);
+                filterMonth.addEventListener('change', applyCommitmentFilters);
+                
+                clearCommitmentFilters.addEventListener('click', function() {
+                    searchCommitments.value = '';
+                    filterCommitmentPerson.value = '';
+                    filterMonth.value = '';
+                    renderCommitments();
                 });
                 
-                bsToast.show();
-                
-                toast.addEventListener('hidden.bs.toast', function() {
-                    toast.remove();
-                });
+                // Initial render
+                renderExpenses();
+                renderCommitments();
             }
         });
     </script>
